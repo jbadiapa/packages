@@ -1,27 +1,23 @@
-# Generated from lru_redux-1.1.0.gem by gem2rpm -*- rpm-spec -*-
-%global gem_name lru_redux
+# Generated from netrc-0.11.0.gem by gem2rpm -*- rpm-spec -*-
+%global gem_name netrc
 
 Name: rubygem-%{gem_name}
-Version: 1.1.0
+Version: 0.11.0
 Release: 1%{?dist}
-Summary: An efficient implementation of an lru cache
+Summary: Library to read/write netrc files
 Group: Development/Languages
 License: MIT
-URL: https://github.com/SamSaffron/lru_redux
+URL: https://github.com/geemus/netrc
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 1.9.3
+BuildRequires: ruby
 # BuildRequires: rubygem(minitest)
-# BuildRequires: rubygem(guard-minitest)
-# BuildRequires: rubygem(guard)
-# BuildRequires: rubygem(rb-inotify)
-# BuildRequires: rubygem(timecop) >= 0.7
-# BuildRequires: rubygem(timecop) < 1
 BuildArch: noarch
 
 %description
-A ruby efficient implementation of an lru cache.
+This library can read and update netrc files, preserving formatting including
+comments and whitespace.
 
 
 %package doc
@@ -64,22 +60,18 @@ popd
 
 %files
 %dir %{gem_instdir}
-%exclude %{gem_instdir}/.gitignore
-%{gem_instdir}/Guardfile
-%license %{gem_instdir}/LICENSE.txt
-%{gem_instdir}/bench
+%license %{gem_instdir}/LICENSE.md
+%{gem_instdir}/data
 %{gem_libdir}
-%exclude %{gem_instdir}/lru_redux.gemspec
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
-%{gem_instdir}/Gemfile
-%doc %{gem_instdir}/README.md
-%{gem_instdir}/Rakefile
+%doc %{gem_instdir}/Readme.md
+%doc %{gem_instdir}/changelog.txt
 %{gem_instdir}/test
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.1.0-1
+* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.11.0-1
 - Initial package

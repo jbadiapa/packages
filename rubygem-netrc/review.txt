@@ -24,6 +24,14 @@ Legend:
 [ ] = Manual review needed
 
 
+Issues:
+=======
+- Package does not use a name that already exists.
+  Note: A package with this name already exists. Please check
+  https://admin.fedoraproject.org/pkgdb/package/rubygem-netrc
+  See:
+  https://fedoraproject.org/wiki/Packaging/NamingGuidelines#Conflicting_Package_Names
+
 
 ===== MUST items =====
 
@@ -33,10 +41,9 @@ Generic:
      Guidelines.
 [ ]: License field in the package spec file matches the actual license.
      Note: Checking patched sources after %prep for licenses. Licenses
-     found: "MIT/X11 (BSD like)", "Unknown or generated". 22 files have
+     found: "MIT/X11 (BSD like)", "Unknown or generated". 16 files have
      unknown license. Detailed output of licensecheck in
-     /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-
-     lru_redux/licensecheck.txt
+     /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-netrc/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: Package must own all directories that it creates.
      Note: Directories without known owners: /usr/share/gems,
@@ -81,7 +88,6 @@ Generic:
 [x]: Package use %makeinstall only when make install DESTDIR=... doesn't
      work.
 [x]: Package is named using only allowed ASCII characters.
-[x]: Package does not use a name that already exists.
 [x]: Package is not relocatable.
 [x]: Sources used to build the package match the upstream source, as
      provided in the spec URL.
@@ -103,7 +109,7 @@ Generic:
 [ ]: Final provides and requires are sane (see attachments).
 [ ]: Fully versioned dependency in subpackages if applicable.
      Note: No Requires: %{name}%{?_isa} = %{version}-%{release} in rubygem-
-     lru_redux-doc
+     netrc-doc
 [ ]: Package functions as described.
 [ ]: Latest version is packaged.
 [ ]: Package does not include license text files separate from upstream.
@@ -135,66 +141,55 @@ Generic:
 
 Rpmlint
 -------
-Checking: rubygem-lru_redux-1.1.0-1.fc25.noarch.rpm
-          rubygem-lru_redux-doc-1.1.0-1.fc25.noarch.rpm
-          rubygem-lru_redux-1.1.0-1.fc25.src.rpm
-rubygem-lru_redux.noarch: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux.noarch: W: spelling-error %description -l en_US lru -> URL
-rubygem-lru_redux.noarch: W: no-documentation
-rubygem-lru_redux-doc.noarch: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux-doc.noarch: W: spelling-error Summary(en_US) redux -> reduce
-rubygem-lru_redux-doc.noarch: W: spelling-error %description -l en_US lru -> URL
-rubygem-lru_redux-doc.noarch: W: spelling-error %description -l en_US redux -> reduce
-rubygem-lru_redux.src: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux.src: W: spelling-error %description -l en_US lru -> URL
-3 packages and 0 specfiles checked; 0 errors, 9 warnings.
+Checking: rubygem-netrc-0.11.0-1.fc25.noarch.rpm
+          rubygem-netrc-doc-0.11.0-1.fc25.noarch.rpm
+          rubygem-netrc-0.11.0-1.fc25.src.rpm
+rubygem-netrc.noarch: W: spelling-error %description -l en_US whitespace -> white space, white-space, whites pace
+rubygem-netrc.noarch: W: no-documentation
+rubygem-netrc.src: W: spelling-error %description -l en_US whitespace -> white space, white-space, whites pace
+3 packages and 0 specfiles checked; 0 errors, 3 warnings.
 
 
 
 
 Rpmlint (installed packages)
 ----------------------------
-rubygem-lru_redux.noarch: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux.noarch: W: spelling-error %description -l en_US lru -> URL
-rubygem-lru_redux.noarch: W: no-documentation
-rubygem-lru_redux-doc.noarch: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux-doc.noarch: W: spelling-error Summary(en_US) redux -> reduce
-rubygem-lru_redux-doc.noarch: W: spelling-error %description -l en_US lru -> URL
-rubygem-lru_redux-doc.noarch: W: spelling-error %description -l en_US redux -> reduce
-2 packages and 0 specfiles checked; 0 errors, 7 warnings.
+rubygem-netrc.noarch: W: spelling-error %description -l en_US whitespace -> white space, white-space, whites pace
+rubygem-netrc.noarch: W: no-documentation
+2 packages and 0 specfiles checked; 0 errors, 2 warnings.
 
 
 
 Requires
 --------
-rubygem-lru_redux (rpmlib, GLIBC filtered):
-    ruby(rubygems)
+rubygem-netrc-doc (rpmlib, GLIBC filtered):
+    rubygem-netrc
 
-rubygem-lru_redux-doc (rpmlib, GLIBC filtered):
-    rubygem-lru_redux
+rubygem-netrc (rpmlib, GLIBC filtered):
+    ruby(rubygems)
 
 
 
 Provides
 --------
-rubygem-lru_redux:
-    rubygem(lru_redux)
-    rubygem-lru_redux
+rubygem-netrc-doc:
+    rubygem-netrc-doc
 
-rubygem-lru_redux-doc:
-    rubygem-lru_redux-doc
+rubygem-netrc:
+    rubygem(netrc)
+    rubygem-netrc
 
 
 
 Source checksums
 ----------------
-https://rubygems.org/gems/lru_redux-1.1.0.gem :
-  CHECKSUM(SHA256) this package     : ee71d0ccab164c51de146c27b480a68b3631d5b4297b8ffe8eda1c72de87affb
-  CHECKSUM(SHA256) upstream package : ee71d0ccab164c51de146c27b480a68b3631d5b4297b8ffe8eda1c72de87affb
+https://rubygems.org/gems/netrc-0.11.0.gem :
+  CHECKSUM(SHA256) this package     : de1ce33da8c99ab1d97871726cba75151113f117146becbe45aa85cb3dabee3f
+  CHECKSUM(SHA256) upstream package : de1ce33da8c99ab1d97871726cba75151113f117146becbe45aa85cb3dabee3f
 
 
 Generated by fedora-review 0.6.1 (f03e4e7) last change: 2016-05-02
-Command line :/usr/bin/fedora-review -n rubygem-lru_redux
+Command line :/usr/bin/fedora-review -n rubygem-netrc
 Buildroot used: fedora-25-x86_64
 Active plugins: Generic, Shell-api
 Disabled plugins: Java, C/C++, Python, fonts, SugarActivity, Ocaml, Perl, Haskell, R, PHP
