@@ -6,7 +6,7 @@ Version: 0.5.20170404
 Release: 1%{?dist}
 Summary: Domain Name manipulation library for Ruby
 Group: Development/Languages
-License: BSD-2-Clause and BSD-3-Clause and MPL-2.0
+License: BSD and MPLv2.0
 URL: https://github.com/knu/ruby-domain_name
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
@@ -33,12 +33,9 @@ Documentation for %{name}.
 
 %prep
 gem unpack %{SOURCE0}
-for FILE in `find . -name 'gen_etld_data.rb'`;
-do
-   # #!/usr/bin/env ruby
-   sed -i -e 's/\/usr\/bin\/env ruby/\/usr\/bin\/ruby/g' ${FILE}
-   chmod 744 ${FILE}
-done
+
+sed -i -e 's/\/usr\/bin\/env ruby/\/usr\/bin\/ruby/g' %{gem_name}-%{version}/tool/gen_etld_data.rb
+chmod 744 %{gem_name}-%{version}/tool/gen_etld_data.rb
 
 %setup -q -D -T -n  %{gem_name}-%{version}
 

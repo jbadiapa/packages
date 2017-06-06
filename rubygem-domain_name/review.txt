@@ -49,7 +49,7 @@ Generic:
      Note: Checking patched sources after %prep for licenses. Licenses
      found: "BSD (3 clause)", "Unknown or generated", "*No copyright* MPL
      (v2.0)". 14 files have unknown license. Detailed output of
-     licensecheck in /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-
+     licensecheck in /home/vagrant/rpmbuild/SPEC/review/review-rubygem-
      domain_name/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: If the package is under multiple licenses, the licensing breakdown
@@ -150,33 +150,18 @@ Rpmlint
 Checking: rubygem-domain_name-0.5.20170404-1.fc25.noarch.rpm
           rubygem-domain_name-doc-0.5.20170404-1.fc25.noarch.rpm
           rubygem-domain_name-0.5.20170404-1.fc25.src.rpm
-rubygem-domain_name.noarch: W: invalid-license BSD-2-Clause
-rubygem-domain_name.noarch: W: invalid-license BSD-3-Clause
-rubygem-domain_name.noarch: W: invalid-license MPL-2.0
 rubygem-domain_name.noarch: W: no-documentation
-rubygem-domain_name-doc.noarch: W: invalid-license BSD-2-Clause
-rubygem-domain_name-doc.noarch: W: invalid-license BSD-3-Clause
-rubygem-domain_name-doc.noarch: W: invalid-license MPL-2.0
 rubygem-domain_name-doc.noarch: W: hidden-file-or-dir /usr/share/gems/gems/domain_name-0.5.20170404/.document
-rubygem-domain_name.src: W: invalid-license BSD-2-Clause
-rubygem-domain_name.src: W: invalid-license BSD-3-Clause
-rubygem-domain_name.src: W: invalid-license MPL-2.0
-3 packages and 0 specfiles checked; 0 errors, 11 warnings.
+3 packages and 0 specfiles checked; 0 errors, 2 warnings.
 
 
 
 
 Rpmlint (installed packages)
 ----------------------------
-rubygem-domain_name-doc.noarch: W: invalid-license BSD-2-Clause
-rubygem-domain_name-doc.noarch: W: invalid-license BSD-3-Clause
-rubygem-domain_name-doc.noarch: W: invalid-license MPL-2.0
 rubygem-domain_name-doc.noarch: W: hidden-file-or-dir /usr/share/gems/gems/domain_name-0.5.20170404/.document
-rubygem-domain_name.noarch: W: invalid-license BSD-2-Clause
-rubygem-domain_name.noarch: W: invalid-license BSD-3-Clause
-rubygem-domain_name.noarch: W: invalid-license MPL-2.0
 rubygem-domain_name.noarch: W: no-documentation
-2 packages and 0 specfiles checked; 0 errors, 8 warnings.
+2 packages and 0 specfiles checked; 0 errors, 2 warnings.
 
 
 

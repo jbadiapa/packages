@@ -43,7 +43,8 @@ Generic:
      Note: Checking patched sources after %prep for licenses. Licenses
      found: "MIT/X11 (BSD like)", "Unknown or generated". 16 files have
      unknown license. Detailed output of licensecheck in
-     /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-netrc/licensecheck.txt
+     /home/vagrant/rpmbuild/SPEC/review/review-rubygem-
+     netrc/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: Package must own all directories that it creates.
      Note: Directories without known owners: /usr/share/gems,
@@ -144,19 +145,16 @@ Rpmlint
 Checking: rubygem-netrc-0.11.0-1.fc25.noarch.rpm
           rubygem-netrc-doc-0.11.0-1.fc25.noarch.rpm
           rubygem-netrc-0.11.0-1.fc25.src.rpm
-rubygem-netrc.noarch: W: spelling-error %description -l en_US whitespace -> white space, white-space, whites pace
 rubygem-netrc.noarch: W: no-documentation
-rubygem-netrc.src: W: spelling-error %description -l en_US whitespace -> white space, white-space, whites pace
-3 packages and 0 specfiles checked; 0 errors, 3 warnings.
+3 packages and 0 specfiles checked; 0 errors, 1 warnings.
 
 
 
 
 Rpmlint (installed packages)
 ----------------------------
-rubygem-netrc.noarch: W: spelling-error %description -l en_US whitespace -> white space, white-space, whites pace
 rubygem-netrc.noarch: W: no-documentation
-2 packages and 0 specfiles checked; 0 errors, 2 warnings.
+2 packages and 0 specfiles checked; 0 errors, 1 warnings.
 
 
 

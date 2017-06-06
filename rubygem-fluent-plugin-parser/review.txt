@@ -154,9 +154,9 @@ INFO: enabled HW Info plugin
 Mock Version: 1.3.4
 INFO: Mock Version: 1.3.4
 Finish: chroot init
-INFO: installing package(s): /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-0.6.1-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-doc-0.6.1-1.fc25.noarch.rpm
+INFO: installing package(s): /home/vagrant/rpmbuild/SPEC/review/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-0.6.1-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/review/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-doc-0.6.1-1.fc25.noarch.rpm
 ERROR: Command failed. See logs for output.
- # /usr/bin/dnf --installroot /var/lib/mock/fedora-25-x86_64/root/ --releasever 25 --disableplugin=local --setopt=deltarpm=false install /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-0.6.1-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-doc-0.6.1-1.fc25.noarch.rpm --setopt=tsflags=nocontexts
+ # /usr/bin/dnf --installroot /var/lib/mock/fedora-25-x86_64/root/ --releasever 25 --disableplugin=local --setopt=deltarpm=false install /home/vagrant/rpmbuild/SPEC/review/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-0.6.1-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/review/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-doc-0.6.1-1.fc25.noarch.rpm --setopt=tsflags=nocontexts
 
 
 Rpmlint
@@ -166,13 +166,10 @@ Checking: rubygem-fluent-plugin-parser-0.6.1-1.fc25.noarch.rpm
           rubygem-fluent-plugin-parser-0.6.1-1.fc25.src.rpm
 rubygem-fluent-plugin-parser.noarch: W: spelling-error Summary(en_US) Fluentd -> Fluent, Fluent d
 rubygem-fluent-plugin-parser.noarch: W: spelling-error %description -l en_US fluentd -> fluent, fluent d
-rubygem-fluent-plugin-parser.noarch: W: invalid-license Apache-2.0
 rubygem-fluent-plugin-parser.noarch: W: no-documentation
-rubygem-fluent-plugin-parser-doc.noarch: W: invalid-license Apache-2.0
 rubygem-fluent-plugin-parser.src: W: spelling-error Summary(en_US) Fluentd -> Fluent, Fluent d
 rubygem-fluent-plugin-parser.src: W: spelling-error %description -l en_US fluentd -> fluent, fluent d
-rubygem-fluent-plugin-parser.src: W: invalid-license Apache-2.0
-3 packages and 0 specfiles checked; 0 errors, 8 warnings.
+3 packages and 0 specfiles checked; 0 errors, 5 warnings.
 
 
 

@@ -17,7 +17,7 @@ BuildArch: noarch
 
 %description
 This library can read and update netrc files, preserving formatting including
-comments and whitespace.
+comments and white space.
 
 
 %package doc

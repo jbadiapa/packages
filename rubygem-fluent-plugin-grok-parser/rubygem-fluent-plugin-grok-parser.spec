@@ -6,7 +6,7 @@ Version: 0.3.1
 Release: 1%{?dist}
 Summary: Fluentd plugin to support Logstash-inspired Grok format
 Group: Development/Languages
-License: Apache-2.0
+License: ASL 2.0
 URL: https://github.com/kiyoto/fluent-plugin-grok-parser
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
@@ -30,13 +30,12 @@ Documentation for %{name}.
 
 %prep
 gem unpack %{SOURCE0}
-for FILE in `find . -name 'Rakefile'`;
-do
-   sed -i -e 's/\/usr\/bin\/env rake/\/bin\/rake/g' ${FILE}
-   chmod 744 ${FILE}
-done
+
+sed -i -e 's/\/usr\/bin\/env rake/\/bin\/rake/g' %{gem_name}-%{version}/Rakefile
+chmod 744 %{gem_name}-%{version}/Rakefile
 
 %setup -q -D -T -n  %{gem_name}-%{version}
+
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 

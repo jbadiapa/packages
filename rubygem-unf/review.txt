@@ -159,9 +159,9 @@ INFO: enabled HW Info plugin
 Mock Version: 1.3.4
 INFO: Mock Version: 1.3.4
 Finish: chroot init
-INFO: installing package(s): /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-unf/results/rubygem-unf-0.1.4-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-unf/results/rubygem-unf-doc-0.1.4-1.fc25.noarch.rpm
+INFO: installing package(s): /home/vagrant/rpmbuild/SPEC/review/review-rubygem-unf/results/rubygem-unf-doc-0.1.4-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/review/review-rubygem-unf/results/rubygem-unf-0.1.4-1.fc25.noarch.rpm
 ERROR: Command failed. See logs for output.
- # /usr/bin/dnf --installroot /var/lib/mock/fedora-25-x86_64/root/ --releasever 25 --disableplugin=local --setopt=deltarpm=false install /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-unf/results/rubygem-unf-0.1.4-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-unf/results/rubygem-unf-doc-0.1.4-1.fc25.noarch.rpm --setopt=tsflags=nocontexts
+ # /usr/bin/dnf --installroot /var/lib/mock/fedora-25-x86_64/root/ --releasever 25 --disableplugin=local --setopt=deltarpm=false install /home/vagrant/rpmbuild/SPEC/review/review-rubygem-unf/results/rubygem-unf-doc-0.1.4-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/review/review-rubygem-unf/results/rubygem-unf-0.1.4-1.fc25.noarch.rpm --setopt=tsflags=nocontexts
 
 
 Rpmlint
@@ -169,11 +169,8 @@ Rpmlint
 Checking: rubygem-unf-0.1.4-1.fc25.noarch.rpm
           rubygem-unf-doc-0.1.4-1.fc25.noarch.rpm
           rubygem-unf-0.1.4-1.fc25.src.rpm
-rubygem-unf.noarch: W: invalid-license 2-clause BSDL
 rubygem-unf.noarch: W: no-documentation
-rubygem-unf-doc.noarch: W: invalid-license 2-clause BSDL
-rubygem-unf.src: W: invalid-license 2-clause BSDL
-3 packages and 0 specfiles checked; 0 errors, 4 warnings.
+3 packages and 0 specfiles checked; 0 errors, 1 warnings.
 
 
 

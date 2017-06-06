@@ -6,7 +6,7 @@ Version: 0.1.4
 Release: 1%{?dist}
 Summary: A wrapper library to bring Unicode Normalization Form support to Ruby/JRuby
 Group: Development/Languages
-License: 2-clause BSDL
+License: BSD
 URL: https://github.com/knu/ruby-unf
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
@@ -31,10 +31,8 @@ Documentation for %{name}.
 
 %prep
 gem unpack %{SOURCE0}
-for FILE in `find %{gem_name}-%{version} -name 'Rakefile'`;
-do
-   sed -i -e 's/\/usr\/bin\/env rake/\/bin\/rake/g' ${FILE}
-done
+
+sed -i -e 's/\/usr\/bin\/env rake/\/bin\/rake/g' %{gem_name}-%{version}/Rakefile
 
 %setup -q -D -T -n  %{gem_name}-%{version}
 

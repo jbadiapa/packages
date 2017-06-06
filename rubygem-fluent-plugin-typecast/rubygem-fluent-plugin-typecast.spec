@@ -6,7 +6,7 @@ Version: 0.2.0
 Release: 1%{?dist}
 Summary: Fluentd plugin to typecast output
 Group: Development/Languages
-License: Apache License 2.0
+License: ASL 2.0
 URL: http://github.com/tarom/fluent-plugin-typecast
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)

@@ -41,9 +41,11 @@ Generic:
      other legal requirements as defined in the legal section of Packaging
      Guidelines.
 [ ]: License field in the package spec file matches the actual license.
-     Note: There is no build directory. Running licensecheck on vanilla
-     upstream sources. No licenses found. Please check the source files for
-     licenses manually.
+     Note: Checking patched sources after %prep for licenses. Licenses
+     found: "MIT/X11 (BSD like)", "Unknown or generated". 22 files have
+     unknown license. Detailed output of licensecheck in
+     /home/vagrant/rpmbuild/SPEC/review/review-rubygem-recursive-open-
+     struct/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: Package must own all directories that it creates.
      Note: Directories without known owners: /usr/share/gems,
@@ -132,12 +134,9 @@ Generic:
 
 Generic:
 [!]: When checking ruby code, install the ruby plugin.
-[!]: Spec file according to URL is the same as in SRPM.
-     Note: Bad spec filename: /home/vagrant/rpmbuild/SPEC/tmp/review-
-     rubygem-recursive-open-struct/srpm-unpacked/recursive-open-struct.spec
-     See: (this test has no URL)
 [x]: Rpmlint is run on all installed packages.
      Note: There are rpmlint messages (see attachment).
+[x]: Spec file according to URL is the same as in SRPM.
 
 
 Rpmlint
@@ -145,22 +144,18 @@ Rpmlint
 Checking: rubygem-recursive-open-struct-1.0.4-1.fc25.noarch.rpm
           rubygem-recursive-open-struct-doc-1.0.4-1.fc25.noarch.rpm
           rubygem-recursive-open-struct-1.0.4-1.fc25.src.rpm
-rubygem-recursive-open-struct.noarch: W: spelling-error %description -l en_US ros -> rps, rod, rs
 rubygem-recursive-open-struct.noarch: W: no-documentation
 rubygem-recursive-open-struct-doc.noarch: W: hidden-file-or-dir /usr/share/gems/gems/recursive-open-struct-1.0.4/.document
-rubygem-recursive-open-struct.src: W: spelling-error %description -l en_US ros -> rps, rod, rs
-rubygem-recursive-open-struct.src: E: invalid-spec-name
-3 packages and 0 specfiles checked; 1 errors, 4 warnings.
+3 packages and 0 specfiles checked; 0 errors, 2 warnings.
 
 
 
 
 Rpmlint (installed packages)
 ----------------------------
-rubygem-recursive-open-struct.noarch: W: spelling-error %description -l en_US ros -> rps, rod, rs
 rubygem-recursive-open-struct.noarch: W: no-documentation
 rubygem-recursive-open-struct-doc.noarch: W: hidden-file-or-dir /usr/share/gems/gems/recursive-open-struct-1.0.4/.document
-2 packages and 0 specfiles checked; 0 errors, 3 warnings.
+2 packages and 0 specfiles checked; 0 errors, 2 warnings.
 
 
 
