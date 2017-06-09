@@ -30,10 +30,6 @@ Legend:
 C/C++:
 [ ]: Package does not contain kernel modules.
 [ ]: Package contains no static executables.
-[ ]: Development (unversioned) .so files in -devel subpackage, if present.
-     Note: Unversioned so-files in private %_libdir subdirectory (see
-     attachment). Verify they are not in ld path.
-[x]: Header files in -devel subpackage, if present.
 [x]: Package does not contain any libtool archives (.la)
 [x]: Rpath absent or only used for internal libs.
 
@@ -44,12 +40,9 @@ Generic:
 [ ]: License field in the package spec file matches the actual license.
      Note: Checking patched sources after %prep for licenses. Licenses
      found: "MIT/X11 (BSD like)", "BSD (3 clause)", "Unknown or generated".
-     131 files have unknown license. Detailed output of licensecheck in
-     /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-oj/licensecheck.txt
+     132 files have unknown license. Detailed output of licensecheck in
+     /home/vagrant/rpmbuild/SPEC/review-rubygem-oj/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
-[ ]: Package must own all directories that it creates.
-     Note: Directories without known owners: /usr/share/gems,
-     /usr/share/gems/doc
 [ ]: %build honors applicable compiler flags or justifies otherwise.
 [ ]: Package contains no bundled libraries without FPC exception.
 [ ]: Changelog in prescribed format.
@@ -79,6 +72,7 @@ Generic:
      license(s) in its own file, then that file, containing the text of the
      license(s) for the package is included in %license.
 [x]: Package requires other packages for directories it uses.
+[x]: Package must own all directories that it creates.
 [x]: Package does not own files or directories owned by other packages.
 [x]: All build dependencies are listed in BuildRequires, except for any
      that are listed in the exceptions section of Packaging Guidelines.
@@ -114,10 +108,12 @@ Generic:
 [ ]: Final provides and requires are sane (see attachments).
 [ ]: Fully versioned dependency in subpackages if applicable.
      Note: No Requires: %{name}%{?_isa} = %{version}-%{release} in rubygem-
-     oj-doc , rubygem-oj-debuginfo
+     oj-doc
 [ ]: Package functions as described.
 [ ]: Latest version is packaged.
 [ ]: Package does not include license text files separate from upstream.
+[ ]: Patches link to upstream bugs/comments/lists or are otherwise
+     justified.
 [ ]: Description and summary sections in the package spec file contains
      translations for supported Non-English languages, if available.
 [ ]: Package should compile and build into binary rpms on all supported
@@ -139,8 +135,6 @@ Generic:
 
 Generic:
 [!]: When checking ruby code, install the ruby plugin.
-[x]: Rpmlint is run on debuginfo package(s).
-     Note: No rpmlint messages.
 [x]: Rpmlint is run on all installed packages.
      Note: There are rpmlint messages (see attachment).
 [x]: Large data in /usr/share should live in a noarch subpackage if package
@@ -152,23 +146,14 @@ Rpmlint
 -------
 Checking: rubygem-oj-3.1.0-1.fc25.x86_64.rpm
           rubygem-oj-doc-3.1.0-1.fc25.noarch.rpm
-          rubygem-oj-debuginfo-3.1.0-1.fc25.x86_64.rpm
           rubygem-oj-3.1.0-1.fc25.src.rpm
 rubygem-oj.x86_64: W: spelling-error Summary(en_US) serializer -> serialize, serializes, serialized
 rubygem-oj.x86_64: W: spelling-error %description -l en_US serializer -> serialize, serializes, serialized
+rubygem-oj.x86_64: E: no-binary
 rubygem-oj.x86_64: W: no-documentation
 rubygem-oj.src: W: spelling-error Summary(en_US) serializer -> serialize, serializes, serialized
 rubygem-oj.src: W: spelling-error %description -l en_US serializer -> serialize, serializes, serialized
-4 packages and 0 specfiles checked; 0 errors, 5 warnings.
-
-
-
-
-Rpmlint (debuginfo)
--------------------
-Checking: rubygem-oj-debuginfo-3.1.0-1.fc25.x86_64.rpm
-1 packages and 0 specfiles checked; 0 errors, 0 warnings.
-
+3 packages and 0 specfiles checked; 1 errors, 5 warnings.
 
 
 
@@ -177,37 +162,25 @@ Rpmlint (installed packages)
 ----------------------------
 rubygem-oj.x86_64: W: spelling-error Summary(en_US) serializer -> serialize, serializes, serialized
 rubygem-oj.x86_64: W: spelling-error %description -l en_US serializer -> serialize, serializes, serialized
+rubygem-oj.x86_64: E: no-binary
 rubygem-oj.x86_64: W: no-documentation
-3 packages and 0 specfiles checked; 0 errors, 3 warnings.
+2 packages and 0 specfiles checked; 1 errors, 3 warnings.
 
 
 
 Requires
 --------
-rubygem-oj-debuginfo (rpmlib, GLIBC filtered):
-
 rubygem-oj-doc (rpmlib, GLIBC filtered):
     /usr/bin/ruby
     rubygem-oj
 
 rubygem-oj (rpmlib, GLIBC filtered):
-    libc.so.6()(64bit)
-    libcrypt.so.1()(64bit)
-    libdl.so.2()(64bit)
-    libm.so.6()(64bit)
-    libpthread.so.0()(64bit)
-    libruby.so.2.3()(64bit)
-    rtld(GNU_HASH)
     ruby(rubygems)
 
 
 
 Provides
 --------
-rubygem-oj-debuginfo:
-    rubygem-oj-debuginfo
-    rubygem-oj-debuginfo(x86-64)
-
 rubygem-oj-doc:
     rubygem-oj-doc
 
@@ -217,10 +190,6 @@ rubygem-oj:
     rubygem-oj(x86-64)
 
 
-
-Unversioned so-files
---------------------
-rubygem-oj: /usr/lib64/gems/ruby/oj-3.1.0/oj.so
 
 Source checksums
 ----------------

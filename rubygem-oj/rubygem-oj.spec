@@ -1,5 +1,6 @@
 # Generated from oj-3.1.0.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name oj
+%global debug_package %{nil}
 
 Name: rubygem-%{gem_name}
 Version: 3.1.0
@@ -74,21 +75,16 @@ mkdir -p %{buildroot}%{gem_extdir_mri}
 # Prevent dangling symlink in -debuginfo (rhbz#878863).
 rm -rf %{buildroot}%{gem_instdir}/ext/
 
-
 # Run the test suite
 %check
 pushd .%{gem_instdir}
 ruby -Ilib -e 'Dir.glob "./test/**/tests.rb", &method(:require)'
-#ruby -Ilib -e 'Dir.glob "./test/**/tests_mimic.rb", &method(:require)'
-#ruby -Ilib -e 'Dir.glob "./test/**/tests_mimic_addition.rb", &method(:require)'
 popd
 
 %files
 %dir %{gem_instdir}
 %{gem_extdir_mri}
 %license %{gem_instdir}/LICENSE
-%exclude %{gem_instdir}/ext
-%exclude %{gem_extdir_mri}/gem.build_complete
 %{gem_libdir}
 %{gem_instdir}/pages
 %exclude %{gem_cache}
@@ -97,6 +93,7 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/README.md
+%license %{gem_instdir}/LICENSE
 %{gem_instdir}/test
 
 %changelog
