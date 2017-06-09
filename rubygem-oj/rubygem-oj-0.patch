@@ -1,0 +1,26 @@
+diff -urN oj-3.1.0/ext/oj/oj.h oj-3.1.0-1/ext/oj/oj.h
+--- oj-3.1.0/ext/oj/oj.h	2017-06-08 22:10:43.036606241 +0000
++++ oj-3.1.0-1/ext/oj/oj.h	2017-06-08 22:16:11.227100060 +0000
+@@ -371,6 +371,8 @@
+ extern VALUE	oj_cache_mutex;
+ #endif
+ 
++#include "rstruct_get.h"
++
+ #if defined(__cplusplus)
+ #if 0
+ { /* satisfy cc-mode */
+diff -urN oj-3.1.0/ext/oj/rstruct_get.h oj-3.1.0-1/ext/oj/rstruct_get.h
+--- oj-3.1.0/ext/oj/rstruct_get.h	1970-01-01 00:00:00.000000000 +0000
++++ oj-3.1.0-1/ext/oj/rstruct_get.h	2017-06-08 22:15:30.567153683 +0000
+@@ -0,0 +1,10 @@
++/*
++ *  * RSTRUCT_GET
++ *   */
++#ifndef RSTRUCT_GET
++#  ifdef RSTRUCT_PTR  /* MRI <= 2.0.0 */
++#    define RSTRUCT_GET(st, idx)  (RSTRUCT_PTR(st)[idx])
++#  else /* Rubinius */
++#    define RSTRUCT_GET(st, idx)  (rb_struct_aref(st, INT2FIX(idx)))
++#  endif
++#endif
