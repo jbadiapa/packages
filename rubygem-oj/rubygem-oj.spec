@@ -14,11 +14,11 @@ Patch0: rubygem-oj-0.patch
 Patch1: rubygem-oj-1.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby-devel
-BuildRequires: rubygem-minitest
-BuildRequires: rubygem-bigdecimal
-BuildRequires: rubygem-test-unit
-#BuildRequires: rubygem-
+BuildRequires: ruby-devel >= 1.9.3
+BuildRequires: rubygem(minitest) >= 5
+BuildRequires: rubygem(minitest) < 6
+BuildRequires: rubygem(bigdecimal)
+BuildRequires: rubygem(test-unit)
 # BuildRequires: rubygem(rake-compiler) >= 0.9
 # BuildRequires: rubygem(rake-compiler) < 1
 # BuildRequires: rubygem(minitest) >= 5

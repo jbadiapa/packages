@@ -41,7 +41,7 @@ Generic:
      Note: Checking patched sources after %prep for licenses. Licenses
      found: "MIT/X11 (BSD like)", "BSD (3 clause)", "Unknown or generated".
      132 files have unknown license. Detailed output of licensecheck in
-     /home/vagrant/rpmbuild/SPEC/review-rubygem-oj/licensecheck.txt
+     /home/vagrant/rpmbuild/review-rubygem-oj/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: %build honors applicable compiler flags or justifies otherwise.
 [ ]: Package contains no bundled libraries without FPC exception.
