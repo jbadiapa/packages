@@ -12,8 +12,10 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-# BuildRequires: rubygem(test-unit)
-# BuildRequires: rubygem(oj)
+BuildRequires: rubygem(test-unit)
+BuildRequires: rubygem(oj)
+BuildRequires: rubygem(rake)
+Requires: fluentd
 BuildArch: noarch
 
 %description
@@ -24,7 +26,6 @@ field.
 %package doc
 Summary: Documentation for %{name}
 Group: Documentation
-Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
 %description doc
@@ -59,7 +60,7 @@ cp -a .%{gem_dir}/* \
 # Run the test suite
 %check
 pushd .%{gem_instdir}
-
+rake test
 popd
 
 %files
@@ -76,6 +77,7 @@ popd
 %doc %{gem_docdir}
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
+%license %{gem_instdir}/LICENSE.txt
 %{gem_instdir}/Rakefile
 %{gem_instdir}/test
 

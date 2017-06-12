@@ -12,7 +12,11 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-# BuildRequires: rubygem(test-unit) >= 3.1.5
+BuildRequires: rubygem(test-unit) >= 3.1.5
+BuildRequires: rubygem(rake)
+BuildRequires: rubygem(minitest) >= 4.3.2
+BuildRequires: rubygem(minitest) < 5.0.0 
+BuildRequires: fluentd
 BuildArch: noarch
 
 %description
@@ -22,7 +26,6 @@ Fluentd plugin to support Logstash-inspired Grok format for parsing logs.
 %package doc
 Summary: Documentation for %{name}
 Group: Documentation
-Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
 %description doc
@@ -59,6 +62,7 @@ cp -a .%{gem_dir}/* \
 %check
 pushd .%{gem_instdir}
 
+LANG="en_US.UTF-8" rake test
 popd
 
 %files
@@ -76,6 +80,7 @@ popd
 %doc %{gem_docdir}
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
+%license %{gem_instdir}/LICENSE
 %{gem_instdir}/Rakefile
 %{gem_instdir}/test
 
