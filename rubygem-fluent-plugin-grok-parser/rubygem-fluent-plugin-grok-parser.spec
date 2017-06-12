@@ -16,7 +16,9 @@ BuildRequires: rubygem(test-unit) >= 3.1.5
 BuildRequires: rubygem(rake)
 BuildRequires: rubygem(minitest) >= 4.3.2
 BuildRequires: rubygem(minitest) < 5.0.0 
+BUildRequires: rubygem(bundler)
 BuildRequires: fluentd
+Requires: fluentd
 BuildArch: noarch
 
 %description
