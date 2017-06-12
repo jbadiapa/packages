@@ -62,7 +62,13 @@ cp -a .%{gem_dir}/* \
 # Run the test suite
 %check
 pushd .%{gem_instdir}
-rake test
+
+ruby -I"lib:lib:test" test/plugin/test_deparser.rb 
+ruby -I"lib:lib:test" test/plugin/test_filter_deparser.rb 
+ruby -I"lib:lib:test" test/plugin/test_filter_parser.rb 
+ruby -I"lib:lib:test" test/plugin/test_out_parser.rb 
+ruby -I"lib:lib:test" test/plugin/test_out_parser_for_parsers.rb 
+
 popd
 
 %files

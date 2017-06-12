@@ -65,7 +65,8 @@ cp -a .%{gem_dir}/* \
 %check
 pushd .%{gem_instdir}
 
-LANG="en_US.UTF-8" rake test
+LANG="en_US.UTF-8" ruby -I"lib:test" "test/test_grok_parser.rb" "test/test_grok_parser_in_tcp.rb" "test/test_multiline_grok_parser.rb" 
+
 popd
 
 %files
