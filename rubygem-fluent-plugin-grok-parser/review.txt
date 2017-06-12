@@ -26,9 +26,6 @@ Legend:
 
 Issues:
 =======
-- Package installs properly.
-  Note: Installation errors (see attachment)
-  See: https://fedoraproject.org/wiki/Packaging:Guidelines
 - gems should require rubygems package
   Note: Requires: rubygems missing in rubygem-fluent-plugin-grok-parser,
   rubygem-fluent-plugin-grok-parser-doc
@@ -43,13 +40,16 @@ Generic:
      other legal requirements as defined in the legal section of Packaging
      Guidelines.
 [ ]: License field in the package spec file matches the actual license.
-     Note: There is no build directory. Running licensecheck on vanilla
-     upstream sources. No licenses found. Please check the source files for
-     licenses manually.
+     Note: Checking patched sources after %prep for licenses. Licenses
+     found: "Unknown or generated". 7 files have unknown license. Detailed
+     output of licensecheck in /home/vagrant/fedora-review/review-rubygem-
+     fluent-plugin-grok-parser/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: Package must own all directories that it creates.
      Note: Directories without known owners:
-     /usr/share/gems/specifications, /usr/share/gems/gems, /usr/share/gems
+     /usr/share/gems/specifications, /usr/share/gems/gems/fluent-plugin-
+     grok-parser-0.3.1, /usr/share/gems/gems, /usr/share/gems/doc,
+     /usr/share/gems
 [ ]: Package contains no bundled libraries without FPC exception.
 [ ]: Changelog in prescribed format.
 [ ]: Sources contain only permissible code or content.
@@ -70,6 +70,7 @@ Generic:
 [ ]: Package complies to the Packaging Guidelines
 [x]: Package successfully compiles and builds into binary rpms on at least
      one supported primary architecture.
+[x]: Package installs properly.
 [x]: Rpmlint is run on all rpms the build produces.
      Note: There are rpmlint messages (see attachment).
 [x]: If (and only if) the source package includes the text of the
@@ -145,42 +146,20 @@ Ruby:
 [!]: Gem should use %gem_install macro.
 [!]: Test suite should not be run by rake.
 [ ]: Specfile should use macros from rubygem-devel package.
-     Note: The specfile doesn't use these macros: /usr/share/gems/gems
-     /fluent-plugin-grok-parser-0.3.1/lib, /usr/share/gems/specifications
-     /fluent-plugin-grok-parser-0.3.1.gemspec, %exclude
-     /usr/share/gems/cache/fluent-plugin-grok-parser-0.3.1.gem
+     Note: The specfile doesn't use these macros:
+     /usr/share/gems/specifications/fluent-plugin-grok-
+     parser-0.3.1.gemspec, /usr/share/gems/gems/fluent-plugin-grok-
+     parser-0.3.1/lib, %exclude /usr/share/gems/cache/fluent-plugin-grok-
+     parser-0.3.1.gem
 [x]: Gem package should exclude cached Gem.
 [x]: Test suite of the library should be run.
 
 ===== EXTRA items =====
 
 Generic:
-[!]: Rpmlint is run on all installed packages.
-     Note: Mock build failed
-     See: http://fedoraproject.org/wiki/Packaging/Guidelines#rpmlint
+[x]: Rpmlint is run on all installed packages.
+     Note: There are rpmlint messages (see attachment).
 [x]: Spec file according to URL is the same as in SRPM.
-
-
-Installation errors
--------------------
-INFO: mock.py version 1.3.4 starting (python version = 2.7.5)...
-Start: init plugins
-INFO: selinux enabled
-Finish: init plugins
-Start: run
-Start: chroot init
-INFO: calling preinit hooks
-INFO: enabled root cache
-INFO: enabled yum cache
-Start: cleaning yum metadata
-Finish: cleaning yum metadata
-INFO: enabled HW Info plugin
-Mock Version: 1.3.4
-INFO: Mock Version: 1.3.4
-Finish: chroot init
-INFO: installing package(s): /home/vagrant/fedora-review/review-rubygem-fluent-plugin-grok-parser/results/rubygem-fluent-plugin-grok-parser-0.3.1-1.el7.noarch.rpm /home/vagrant/fedora-review/review-rubygem-fluent-plugin-grok-parser/results/rubygem-fluent-plugin-grok-parser-doc-0.3.1-1.el7.noarch.rpm
-ERROR: Command failed. See logs for output.
- # /usr/bin/yum --installroot /var/lib/mock/jbp-centos-7-base/root/ --releasever 7 install /home/vagrant/fedora-review/review-rubygem-fluent-plugin-grok-parser/results/rubygem-fluent-plugin-grok-parser-0.3.1-1.el7.noarch.rpm /home/vagrant/fedora-review/review-rubygem-fluent-plugin-grok-parser/results/rubygem-fluent-plugin-grok-parser-doc-0.3.1-1.el7.noarch.rpm --setopt=tsflags=nocontexts
 
 
 Rpmlint
@@ -195,12 +174,17 @@ rubygem-fluent-plugin-grok-parser.noarch: W: hidden-file-or-dir /usr/share/gems/
 
 
 
+Rpmlint (installed packages)
+----------------------------
+rubygem-fluent-plugin-grok-parser.noarch: W: no-documentation
+rubygem-fluent-plugin-grok-parser.noarch: W: hidden-file-or-dir /usr/share/gems/gems/fluent-plugin-grok-parser-0.3.1/.gitmodules
+2 packages and 0 specfiles checked; 0 errors, 2 warnings.
+
+
+
 Requires
 --------
 rubygem-fluent-plugin-grok-parser-doc (rpmlib, GLIBC filtered):
-    /bin/rake
-    rubygem(rake)
-    rubygem-fluent-plugin-grok-parser
 
 rubygem-fluent-plugin-grok-parser (rpmlib, GLIBC filtered):
     fluentd

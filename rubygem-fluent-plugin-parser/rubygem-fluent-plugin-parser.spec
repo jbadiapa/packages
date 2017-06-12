@@ -13,8 +13,10 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(test-unit)
-BuildRequires: rubygem(oj)
+BuildRequires: rubygem-oj
 BuildRequires: rubygem(rake)
+BuildRequires: rubygem(bundler) 
+BuildRequires: fluentd
 Requires: fluentd
 BuildArch: noarch
 
@@ -78,8 +80,8 @@ popd
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %license %{gem_instdir}/LICENSE.txt
-%{gem_instdir}/Rakefile
-%{gem_instdir}/test
+%exclude %{gem_instdir}/Rakefile
+%exclude %{gem_instdir}/test 
 
 %changelog
 * Sun Jun 04 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.6.1-1

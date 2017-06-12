@@ -30,8 +30,6 @@ Fluentd plugin to support Logstash-inspired Grok format for parsing logs.
 Summary: Documentation for %{name}
 Group: Documentation
 BuildArch: noarch
-Requires: %{name}
-Requires: rubygem(rake)
 
 %description doc
 Documentation for %{name}.
@@ -86,8 +84,8 @@ popd
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %license %{gem_instdir}/LICENSE
-%{gem_instdir}/Rakefile
-%{gem_instdir}/test
+%exclude %{gem_instdir}/Rakefile
+%exclude %{gem_instdir}/test
 
 %changelog
 * Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.3.1-1

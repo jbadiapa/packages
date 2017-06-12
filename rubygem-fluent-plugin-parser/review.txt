@@ -26,9 +26,11 @@ Legend:
 
 Issues:
 =======
-- Package installs properly.
-  Note: Installation errors (see attachment)
-  See: https://fedoraproject.org/wiki/Packaging:Guidelines
+- gems should require rubygems package
+  Note: Requires: rubygems missing in rubygem-fluent-plugin-parser,
+  rubygem-fluent-plugin-parser-doc
+  See: http://fedoraproject.org/wiki/Packaging:Ruby#RubyGems
+- Package contains Requires: ruby(release).
 
 
 ===== MUST items =====
@@ -38,13 +40,15 @@ Generic:
      other legal requirements as defined in the legal section of Packaging
      Guidelines.
 [ ]: License field in the package spec file matches the actual license.
-     Note: There is no build directory. Running licensecheck on vanilla
-     upstream sources. No licenses found. Please check the source files for
-     licenses manually.
+     Note: Checking patched sources after %prep for licenses. Licenses
+     found: "Unknown or generated". 11 files have unknown license. Detailed
+     output of licensecheck in /home/vagrant/fedora-review/review-rubygem-
+     fluent-plugin-parser/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: Package must own all directories that it creates.
-     Note: Directories without known owners: /usr/share/gems,
-     /usr/share/gems/doc
+     Note: Directories without known owners: /usr/share/gems/gems/fluent-
+     plugin-parser-0.6.1, /usr/share/gems/specifications,
+     /usr/share/gems/gems, /usr/share/gems/doc, /usr/share/gems
 [ ]: Package contains no bundled libraries without FPC exception.
 [ ]: Changelog in prescribed format.
 [ ]: Sources contain only permissible code or content.
@@ -65,6 +69,7 @@ Generic:
 [ ]: Package complies to the Packaging Guidelines
 [x]: Package successfully compiles and builds into binary rpms on at least
      one supported primary architecture.
+[x]: Package installs properly.
 [x]: Rpmlint is run on all rpms the build produces.
      Note: There are rpmlint messages (see attachment).
 [x]: If (and only if) the source package includes the text of the
@@ -96,11 +101,20 @@ Generic:
      Note: Documentation size is 0 bytes in 0 files.
 [x]: Packages must not store files under /srv, /opt or /usr/local
 
+Ruby:
+[ ]: Platform dependent files must all go under %{gem_extdir_mri}, platform
+     independent under %{gem_dir}.
+[x]: Gem package must not define a non-gem subpackage
+[x]: Macro %{gem_extdir} is deprecated.
+[x]: Gem package is named rubygem-%{gem_name}
+[x]: Package contains BuildRequires: rubygems-devel.
+[x]: Gem package must define %{gem_name} macro.
+[x]: Pure Ruby package must be built as noarch
+[x]: Package does not contain Requires: ruby(abi).
+
 ===== SHOULD items =====
 
 Generic:
-[ ]: Avoid bundling fonts in non-fonts packages.
-     Note: Package contains font files
 [ ]: If the source package does not include license text(s) as a separate
      file from upstream, the packager SHOULD query upstream to include it.
 [ ]: Final provides and requires are sane (see attachments).
@@ -117,79 +131,65 @@ Generic:
 [ ]: %check is present and all tests pass.
 [ ]: Packages should try to preserve timestamps of original installed
      files.
+[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
+[x]: Sources can be downloaded from URI in Source: tag
 [x]: Reviewer should test that the package builds in mock.
 [x]: Buildroot is not present
 [x]: Package has no %clean section with rm -rf %{buildroot} (or
      $RPM_BUILD_ROOT)
 [x]: No file requires outside of /etc, /bin, /sbin, /usr/bin, /usr/sbin.
-[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
-[x]: Sources can be downloaded from URI in Source: tag
 [x]: SourceX is a working URL.
 [x]: Spec use %global instead of %define unless justified.
+
+Ruby:
+[!]: Gem should use %gem_install macro.
+[!]: Test suite should not be run by rake.
+[ ]: Specfile should use macros from rubygem-devel package.
+     Note: The specfile doesn't use these macros:
+     /usr/share/gems/specifications/fluent-plugin-parser-0.6.1.gemspec,
+     /usr/share/gems/gems/fluent-plugin-parser-0.6.1/lib, %exclude
+     /usr/share/gems/cache/fluent-plugin-parser-0.6.1.gem
+[x]: Gem package should exclude cached Gem.
+[x]: Test suite of the library should be run.
 
 ===== EXTRA items =====
 
 Generic:
-[!]: Rpmlint is run on all installed packages.
-     Note: Mock build failed
-     See: http://fedoraproject.org/wiki/Packaging/Guidelines#rpmlint
-[!]: When checking ruby code, install the ruby plugin.
+[x]: Rpmlint is run on all installed packages.
+     Note: There are rpmlint messages (see attachment).
 [x]: Spec file according to URL is the same as in SRPM.
-
-
-Installation errors
--------------------
-INFO: mock.py version 1.3.4 starting (python version = 3.5.3)...
-Start: init plugins
-INFO: selinux enabled
-Finish: init plugins
-Start: run
-Start: chroot init
-INFO: calling preinit hooks
-INFO: enabled root cache
-INFO: enabled dnf cache
-Start: cleaning dnf metadata
-Finish: cleaning dnf metadata
-INFO: enabled HW Info plugin
-Mock Version: 1.3.4
-INFO: Mock Version: 1.3.4
-Finish: chroot init
-INFO: installing package(s): /home/vagrant/rpmbuild/SPEC/review/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-0.6.1-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/review/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-doc-0.6.1-1.fc25.noarch.rpm
-ERROR: Command failed. See logs for output.
- # /usr/bin/dnf --installroot /var/lib/mock/fedora-25-x86_64/root/ --releasever 25 --disableplugin=local --setopt=deltarpm=false install /home/vagrant/rpmbuild/SPEC/review/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-0.6.1-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/review/review-rubygem-fluent-plugin-parser/results/rubygem-fluent-plugin-parser-doc-0.6.1-1.fc25.noarch.rpm --setopt=tsflags=nocontexts
 
 
 Rpmlint
 -------
-Checking: rubygem-fluent-plugin-parser-0.6.1-1.fc25.noarch.rpm
-          rubygem-fluent-plugin-parser-doc-0.6.1-1.fc25.noarch.rpm
-          rubygem-fluent-plugin-parser-0.6.1-1.fc25.src.rpm
-rubygem-fluent-plugin-parser.noarch: W: spelling-error Summary(en_US) Fluentd -> Fluent, Fluent d
-rubygem-fluent-plugin-parser.noarch: W: spelling-error %description -l en_US fluentd -> fluent, fluent d
+Checking: rubygem-fluent-plugin-parser-0.6.1-1.el7.noarch.rpm
+          rubygem-fluent-plugin-parser-doc-0.6.1-1.el7.noarch.rpm
+          rubygem-fluent-plugin-parser-0.6.1-1.el7.src.rpm
 rubygem-fluent-plugin-parser.noarch: W: no-documentation
-rubygem-fluent-plugin-parser.src: W: spelling-error Summary(en_US) Fluentd -> Fluent, Fluent d
-rubygem-fluent-plugin-parser.src: W: spelling-error %description -l en_US fluentd -> fluent, fluent d
-3 packages and 0 specfiles checked; 0 errors, 5 warnings.
+3 packages and 0 specfiles checked; 0 errors, 1 warnings.
 
+
+
+
+Rpmlint (installed packages)
+----------------------------
+rubygem-fluent-plugin-parser.noarch: W: no-documentation
+2 packages and 0 specfiles checked; 0 errors, 1 warnings.
 
 
 
 Requires
 --------
 rubygem-fluent-plugin-parser (rpmlib, GLIBC filtered):
-    ruby(rubygems)
-    rubygem(fluentd)
+    fluentd
 
 rubygem-fluent-plugin-parser-doc (rpmlib, GLIBC filtered):
-    /bin/rake
-    rubygem-fluent-plugin-parser
 
 
 
 Provides
 --------
 rubygem-fluent-plugin-parser:
-    rubygem(fluent-plugin-parser)
     rubygem-fluent-plugin-parser
 
 rubygem-fluent-plugin-parser-doc:
@@ -204,9 +204,9 @@ https://rubygems.org/gems/fluent-plugin-parser-0.6.1.gem :
   CHECKSUM(SHA256) upstream package : 8d9c0d7d371c04dba2fa3f2cd97c2877d97d42bea335a401aacf6d32cd73d57c
 
 
-Generated by fedora-review 0.6.1 (f03e4e7) last change: 2016-05-02
+Generated by fedora-review 0.5.3 (bcf15e3) last change: 2015-05-04
 Command line :/usr/bin/fedora-review -n rubygem-fluent-plugin-parser
-Buildroot used: fedora-25-x86_64
-Active plugins: Generic, Shell-api
+Buildroot used: jbp-centos-7-base
+Active plugins: Generic, Ruby, Shell-api
 Disabled plugins: Java, C/C++, Python, fonts, SugarActivity, Ocaml, Perl, Haskell, R, PHP
 Disabled flags: EXARCH, DISTTAG, EPEL5, BATCH, EPEL6
