@@ -20,6 +20,7 @@ BuildRequires: rubygem(bundler)
 BuildRequires: rubygem(thread_safe)
 BuildRequires: fluentd
 Requires: fluentd
+Requires: rubygems
 BuildArch: noarch
 
 %description
