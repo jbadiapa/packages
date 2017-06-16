@@ -13,11 +13,12 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(test-unit)
-BuildRequires: rubygem-oj
+BuildRequires: rubygem(oj)
 BuildRequires: rubygem(rake)
-BuildRequires: rubygem(bundler) 
-BuildRequires: fluentd
-Requires: fluentd
+BuildRequires: rubygem(bundler)
+BuildRequires: rubygem(thread_safe)
+BuildRequires: fluentd < 0.12.31
+Requires: fluentd 
 BuildArch: noarch
 
 %description
