@@ -18,6 +18,8 @@ BuildRequires: rubygem(rake)
 BuildRequires: rubygem(bundler)
 BuildRequires: rubygem(thread_safe)
 BuildRequires: fluentd < 0.12.31
+BuildRequires: rubygem(json)
+BuildRequires: rubygem(json_pure)
 Requires: fluentd 
 BuildArch: noarch
 
@@ -64,11 +66,11 @@ cp -a .%{gem_dir}/* \
 %check
 pushd .%{gem_instdir}
 
-ruby -I"lib:lib:test" test/plugin/test_deparser.rb 
-ruby -I"lib:lib:test" test/plugin/test_filter_deparser.rb 
-ruby -I"lib:lib:test" test/plugin/test_filter_parser.rb 
-ruby -I"lib:lib:test" test/plugin/test_out_parser.rb 
-ruby -I"lib:lib:test" test/plugin/test_out_parser_for_parsers.rb 
+ruby  -I"lib:lib:test" test/plugin/test_deparser.rb 
+ruby  -I"lib:lib:test" test/plugin/test_filter_deparser.rb 
+ruby  -I"lib:lib:test" test/plugin/test_filter_parser.rb 
+ruby  -I"lib:lib:test" test/plugin/test_out_parser.rb 
+ruby  -I"lib:lib:test" test/plugin/test_out_parser_for_parsers.rb 
 
 popd
 
