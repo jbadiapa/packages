@@ -2,6 +2,7 @@ import RubygemDownloader
 import RubygemParser
 import RubygemCBSChecker 
 import pprint 
+import subprocess
 
 gems =  ['fluent-plugin-kubernetes_metadata_filter']
 
@@ -25,9 +26,16 @@ while gem:
             runtimeDeps = runtimeDeps + parser.runtimeDeps
             devDeps = devDeps + parser.devDeps
             dependencies[gem]={'run':parser.runtimeDeps, 'dev':parser.devDeps, 'download':parser.link}
-            gems = gems + parser.devDeps
+            gemName = "{}.gem".format(gem)
+            downloader.download_file(parser.link,gemName)
+            process = subprocess.Popen(['gem2rpm',gemName], stdout=subprocess.PIPE)
+            out, err = process.communicate()
+            gemSpec = open ("{}.spec".format(gemName),"w")
+            gemSpec.write(out)
+            gemSpec.close()
+            gems = gems + parser.devDeps + parser.runtimeDeps
         else:
-            dependencies[gem]=cbsChecker.packageUrl[37:-2]
+            dependencies[gem]=cbsChecker.packageUrl
         doneGems.append(gem)
 
     if len(gems)>0:
