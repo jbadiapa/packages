@@ -20,8 +20,10 @@ BuildRequires: ruby >= 1.9.3
 # BuildRequires: rubygem(timecop) < 1
 BuildArch: noarch
 
+Provides: rubygem(%{gem_name}) = %{version}
+
 %description
-A ruby efficient implementation of an lru cache.
+An efficient implementation of an lru cache.
 
 
 %package doc
@@ -81,5 +83,5 @@ popd
 %{gem_instdir}/test
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.1.0-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.1.0-1
 - Initial package

@@ -24,6 +24,14 @@ Legend:
 [ ] = Manual review needed
 
 
+Issues:
+=======
+- gems should require rubygems package
+  Note: Requires: rubygems missing in rubygem-lru_redux, rubygem-lru_redux-
+  doc
+  See: http://fedoraproject.org/wiki/Packaging:Ruby#RubyGems
+- Package contains Requires: ruby(release).
+
 
 ===== MUST items =====
 
@@ -32,15 +40,14 @@ Generic:
      other legal requirements as defined in the legal section of Packaging
      Guidelines.
 [ ]: License field in the package spec file matches the actual license.
-     Note: Checking patched sources after %prep for licenses. Licenses
-     found: "MIT/X11 (BSD like)", "Unknown or generated". 22 files have
-     unknown license. Detailed output of licensecheck in
-     /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-
-     lru_redux/licensecheck.txt
+     Note: There is no build directory. Running licensecheck on vanilla
+     upstream sources. No licenses found. Please check the source files for
+     licenses manually.
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: Package must own all directories that it creates.
-     Note: Directories without known owners: /usr/share/gems,
-     /usr/share/gems/doc
+     Note: Directories without known owners:
+     /usr/share/gems/specifications, /usr/share/gems/gems,
+     /usr/share/gems/doc, /usr/share/gems
 [ ]: Package contains no bundled libraries without FPC exception.
 [ ]: Changelog in prescribed format.
 [ ]: Sources contain only permissible code or content.
@@ -93,11 +100,20 @@ Generic:
      Note: Documentation size is 0 bytes in 0 files.
 [x]: Packages must not store files under /srv, /opt or /usr/local
 
+Ruby:
+[ ]: Platform dependent files must all go under %{gem_extdir_mri}, platform
+     independent under %{gem_dir}.
+[x]: Gem package must not define a non-gem subpackage
+[x]: Macro %{gem_extdir} is deprecated.
+[x]: Gem package is named rubygem-%{gem_name}
+[x]: Package contains BuildRequires: rubygems-devel.
+[x]: Gem package must define %{gem_name} macro.
+[x]: Pure Ruby package must be built as noarch
+[x]: Package does not contain Requires: ruby(abi).
+
 ===== SHOULD items =====
 
 Generic:
-[ ]: Avoid bundling fonts in non-fonts packages.
-     Note: Package contains font files
 [ ]: If the source package does not include license text(s) as a separate
      file from upstream, the packager SHOULD query upstream to include it.
 [ ]: Final provides and requires are sane (see attachments).
@@ -114,20 +130,30 @@ Generic:
 [ ]: %check is present and all tests pass.
 [ ]: Packages should try to preserve timestamps of original installed
      files.
+[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
+[x]: Sources can be downloaded from URI in Source: tag
 [x]: Reviewer should test that the package builds in mock.
 [x]: Buildroot is not present
 [x]: Package has no %clean section with rm -rf %{buildroot} (or
      $RPM_BUILD_ROOT)
 [x]: No file requires outside of /etc, /bin, /sbin, /usr/bin, /usr/sbin.
-[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
-[x]: Sources can be downloaded from URI in Source: tag
 [x]: SourceX is a working URL.
 [x]: Spec use %global instead of %define unless justified.
+
+Ruby:
+[!]: Gem should use %gem_install macro.
+[ ]: Specfile should use macros from rubygem-devel package.
+     Note: The specfile doesn't use these macros:
+     /usr/share/gems/gems/lru_redux-1.1.0/lib, %exclude
+     /usr/share/gems/cache/lru_redux-1.1.0.gem,
+     /usr/share/gems/specifications/lru_redux-1.1.0.gemspec
+[x]: Gem package should exclude cached Gem.
+[x]: Test suite should not be run by rake.
+[x]: Test suite of the library should be run.
 
 ===== EXTRA items =====
 
 Generic:
-[!]: When checking ruby code, install the ruby plugin.
 [x]: Rpmlint is run on all installed packages.
      Note: There are rpmlint messages (see attachment).
 [x]: Spec file according to URL is the same as in SRPM.
@@ -135,40 +161,27 @@ Generic:
 
 Rpmlint
 -------
-Checking: rubygem-lru_redux-1.1.0-1.fc25.noarch.rpm
-          rubygem-lru_redux-doc-1.1.0-1.fc25.noarch.rpm
-          rubygem-lru_redux-1.1.0-1.fc25.src.rpm
-rubygem-lru_redux.noarch: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux.noarch: W: spelling-error %description -l en_US lru -> URL
+Checking: rubygem-lru_redux-1.1.0-1.el7.centos.noarch.rpm
+          rubygem-lru_redux-doc-1.1.0-1.el7.centos.noarch.rpm
+          rubygem-lru_redux-1.1.0-1.el7.centos.src.rpm
+rubygem-lru_redux.noarch: W: incoherent-version-in-changelog 1.1.0-1 ['1.1.0-1.el7.centos', '1.1.0-1.centos']
 rubygem-lru_redux.noarch: W: no-documentation
-rubygem-lru_redux-doc.noarch: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux-doc.noarch: W: spelling-error Summary(en_US) redux -> reduce
-rubygem-lru_redux-doc.noarch: W: spelling-error %description -l en_US lru -> URL
-rubygem-lru_redux-doc.noarch: W: spelling-error %description -l en_US redux -> reduce
-rubygem-lru_redux.src: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux.src: W: spelling-error %description -l en_US lru -> URL
-3 packages and 0 specfiles checked; 0 errors, 9 warnings.
+3 packages and 0 specfiles checked; 0 errors, 2 warnings.
 
 
 
 
 Rpmlint (installed packages)
 ----------------------------
-rubygem-lru_redux.noarch: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux.noarch: W: spelling-error %description -l en_US lru -> URL
+rubygem-lru_redux.noarch: W: incoherent-version-in-changelog 1.1.0-1 ['1.1.0-1.el7.centos', '1.1.0-1.centos']
 rubygem-lru_redux.noarch: W: no-documentation
-rubygem-lru_redux-doc.noarch: W: spelling-error Summary(en_US) lru -> URL
-rubygem-lru_redux-doc.noarch: W: spelling-error Summary(en_US) redux -> reduce
-rubygem-lru_redux-doc.noarch: W: spelling-error %description -l en_US lru -> URL
-rubygem-lru_redux-doc.noarch: W: spelling-error %description -l en_US redux -> reduce
-2 packages and 0 specfiles checked; 0 errors, 7 warnings.
+2 packages and 0 specfiles checked; 0 errors, 2 warnings.
 
 
 
 Requires
 --------
 rubygem-lru_redux (rpmlib, GLIBC filtered):
-    ruby(rubygems)
 
 rubygem-lru_redux-doc (rpmlib, GLIBC filtered):
     rubygem-lru_redux
@@ -193,9 +206,9 @@ https://rubygems.org/gems/lru_redux-1.1.0.gem :
   CHECKSUM(SHA256) upstream package : ee71d0ccab164c51de146c27b480a68b3631d5b4297b8ffe8eda1c72de87affb
 
 
-Generated by fedora-review 0.6.1 (f03e4e7) last change: 2016-05-02
+Generated by fedora-review 0.5.3 (bcf15e3) last change: 2015-05-04
 Command line :/usr/bin/fedora-review -n rubygem-lru_redux
-Buildroot used: fedora-25-x86_64
-Active plugins: Generic, Shell-api
+Buildroot used: epel-7-x86_64
+Active plugins: Generic, Ruby, Shell-api
 Disabled plugins: Java, C/C++, Python, fonts, SugarActivity, Ocaml, Perl, Haskell, R, PHP
 Disabled flags: EXARCH, DISTTAG, EPEL5, BATCH, EPEL6
