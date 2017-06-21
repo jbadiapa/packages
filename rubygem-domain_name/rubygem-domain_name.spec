@@ -16,6 +16,8 @@ BuildRequires: ruby
 # BuildRequires: rubygem(test-unit) < 2.6
 BuildArch: noarch
 
+Provides: rubygem(%{gem_name}) = %{version}
+
 %description
 This is a Domain Name manipulation library for Ruby.
 It can also be used for cookie domain validation based on the Public
@@ -85,5 +87,5 @@ popd
 %{gem_instdir}/test
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.5.20170404-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.5.20170404-1
 - Initial package
