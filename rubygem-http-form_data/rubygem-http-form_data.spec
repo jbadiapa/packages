@@ -4,7 +4,7 @@
 Name: rubygem-%{gem_name}
 Version: 1.0.3
 Release: 1%{?dist}
-Summary: Utility to create data request bodies 
+Summary: http-form_data-1.0.3
 Group: Development/Languages
 License: MIT
 URL: https://github.com/httprb/form_data.rb
@@ -63,12 +63,12 @@ popd
 %exclude %{gem_instdir}/.rubocop.yml
 %exclude %{gem_instdir}/.travis.yml
 %exclude %{gem_instdir}/.yardopts
-%exclude %{gem_instdir}/spec/fixtures/expected-multipart-body.tpl
 %{gem_instdir}/CHANGES.md
 %{gem_instdir}/Guardfile
 %license %{gem_instdir}/LICENSE.txt
 %{gem_instdir}/appveyor.yml
 %exclude %{gem_instdir}/http-form_data.gemspec
+%exclude %{gem_instdir}/spec/fixtures/expected-multipart-body.tpl
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
@@ -76,12 +76,12 @@ popd
 %files doc
 %doc %{gem_docdir}
 %exclude %{gem_instdir}/.rspec
-%exclude %{gem_instdir}/spec/fixtures/expected-multipart-body.tpl
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
+%exclude %{gem_instdir}/spec/fixtures/expected-multipart-body.tpl
 %{gem_instdir}/Rakefile
 %{gem_instdir}/spec
 
 %changelog
-* Tue Jun 06 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.0.3-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.0.3-1
 - Initial package

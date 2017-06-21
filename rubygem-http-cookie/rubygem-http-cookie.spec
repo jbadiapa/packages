@@ -83,5 +83,5 @@ popd
 %{gem_instdir}/test
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.0.3-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.0.3-1
 - Initial package

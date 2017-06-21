@@ -4,7 +4,7 @@
 Name: rubygem-%{gem_name}
 Version: 0.0.7.4
 Release: 1%{?dist}
-Summary: Unicode Normalization Form support library for CRuby
+Summary: CRuby library for Unicode Normalization Form
 Group: Development/Languages
 License: MIT
 URL: https://github.com/knu/ruby-unf_ext
@@ -12,7 +12,6 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
-BuildRequires: libstdc++
 BuildRequires: gcc-c++ 
 # BuildRequires: rubygem(test-unit)
 # BuildRequires: rubygem(rake-compiler) >= 0.7.9
@@ -53,7 +52,7 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 mkdir -p %{buildroot}%{gem_extdir_mri}
-cp -a .%{gem_libdir}/*.so %{buildroot}%{gem_extdir_mri}/
+cp -a .%{gem_libdir}/unf_ext.so %{buildroot}%{gem_extdir_mri}/
 
 # Prevent dangling symlink in -debuginfo (rhbz#878863).
 rm -rf %{buildroot}%{gem_instdir}/ext/
@@ -69,10 +68,8 @@ popd
 %files
 %dir %{gem_instdir}
 %{gem_extdir_mri}
-%exclude %{gem_extdir_mri}/gem.build_complete
 %exclude %{gem_instdir}/.gitignore
 %exclude %{gem_instdir}/.travis.yml
-%exclude %{gem_instdir}/.document
 %license %{gem_instdir}/LICENSE.txt
 %{gem_libdir}
 %exclude %{gem_instdir}/unf_ext.gemspec
@@ -81,6 +78,7 @@ popd
 
 %files doc
 %doc %{gem_docdir}
+%doc %{gem_instdir}/.document
 %doc %{gem_instdir}/CHANGELOG.md
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
@@ -88,5 +86,5 @@ popd
 %{gem_instdir}/test
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.0.7.4-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.0.7.4-1
 - Initial package

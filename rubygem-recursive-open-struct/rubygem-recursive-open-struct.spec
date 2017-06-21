@@ -22,10 +22,10 @@ BuildArch: noarch
 RecursiveOpenStruct is a subclass of OpenStruct. It differs from
 OpenStruct in that it allows nested hashes to be treated in a recursive
 fashion. For example:
-example = RecursiveOpenStruct.new({ :a => { :b => 'c' } })
-example.a.b # 'c'
+ros = RecursiveOpenStruct.new({ :a => { :b => 'c' } })
+ros.a.b # 'c'
 Also, nested hashes can still be accessed as hashes:
-example.a_as_a_hash # { :b => 'c' }.
+ros.a_as_a_hash # { :b => 'c' }.
 
 
 %package doc
@@ -88,5 +88,5 @@ popd
 %{gem_instdir}/spec
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.0.4-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.0.4-1
 - Initial package

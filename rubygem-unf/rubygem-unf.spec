@@ -10,6 +10,7 @@ License: BSD
 URL: https://github.com/knu/ruby-unf
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
+BuildRequires: rubygems
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 # BuildRequires: rubygem(shoulda)
@@ -32,7 +33,9 @@ Documentation for %{name}.
 %prep
 gem unpack %{SOURCE0}
 
-sed -i -e 's/\/usr\/bin\/env rake/\/bin\/rake/g' %{gem_name}-%{version}/Rakefile
+#sed -i -e 's/\/usr\/bin\/env rake/\/bin\/rake/g' %{gem_name}-%{version}/Rakefile
+sed -i '1d' %{gem_name}-%{version}/Rakefile
+chmod 644 %{gem_name}-%{version}/Rakefile
 
 %setup -q -D -T -n  %{gem_name}-%{version}
 
@@ -79,5 +82,5 @@ popd
 %{gem_instdir}/test
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.1.4-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.1.4-1
 - Initial package

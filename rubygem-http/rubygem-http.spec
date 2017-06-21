@@ -31,9 +31,6 @@ Documentation for %{name}.
 %prep
 gem unpack %{SOURCE0}
 
-sed -i -e 's/\/usr\/bin\/env rake/\/usr\/bin\/rake/g' %{gem_name}-%{version}/Rakefile
-chmod 744 %{gem_name}-%{version}/Rakefile
-
 %setup -q -D -T -n  %{gem_name}-%{version}
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
@@ -87,5 +84,5 @@ popd
 %{gem_instdir}/spec
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 2.2.2-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 2.2.2-1
 - Initial package

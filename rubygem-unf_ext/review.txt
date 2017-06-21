@@ -26,6 +26,11 @@ Legend:
 
 Issues:
 =======
+- gems should require rubygems package
+  Note: Requires: rubygems missing in rubygem-unf_ext, rubygem-unf_ext-doc
+  See: http://fedoraproject.org/wiki/Packaging:Ruby#RubyGems
+- Pure Ruby package must be built as noarch
+- Package contains Requires: ruby(release).
 - All build dependencies are listed in BuildRequires, except for any that
   are listed in the exceptions section of Packaging Guidelines.
   Note: These BR are not needed: gcc-c++
@@ -33,12 +38,12 @@ Issues:
 - If (and only if) the source package includes the text of the license(s)
   in its own file, then that file, containing the text of the license(s)
   for the package is included in %license.
-  Note: License file LICENSE_txt.html is not marked as %license
+  Note: License file LICENSE_txt.html is marked as %doc instead of %license
   See:
   http://fedoraproject.org/wiki/Packaging/LicensingGuidelines#License_Text
 - Package does not use a name that already exists.
   Note: A package with this name already exists. Please check
-  https://admin.fedoraproject.org/pkgdb/package/rubygem-unf_ext
+  https://admin.fedoraproject.org/pkgdb/acls/name/rubygem-unf_ext
   See:
   https://fedoraproject.org/wiki/Packaging/NamingGuidelines#Conflicting_Package_Names
 
@@ -56,14 +61,14 @@ Generic:
      Guidelines.
 [ ]: License field in the package spec file matches the actual license.
      Note: Checking patched sources after %prep for licenses. Licenses
-     found: "MIT/X11 (BSD like)", "Unknown or generated". 20 files have
-     unknown license. Detailed output of licensecheck in
-     /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-
-     unf_ext/licensecheck.txt
+     found: "Unknown or generated". 12 files have unknown license. Detailed
+     output of licensecheck in /home/vagrant/rpmbuild/review/review-
+     rubygem-unf_ext/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: Package must own all directories that it creates.
      Note: Directories without known owners: /usr/share/gems,
-     /usr/share/gems/doc
+     /usr/lib64/gems/ruby, /usr/share/gems/gems, /usr/share/gems/doc,
+     /usr/lib64/gems
 [ ]: %build honors applicable compiler flags or justifies otherwise.
 [ ]: Package contains no bundled libraries without FPC exception.
 [ ]: Changelog in prescribed format.
@@ -112,17 +117,25 @@ Generic:
      Note: Documentation size is 0 bytes in 0 files.
 [x]: Packages must not store files under /srv, /opt or /usr/local
 
+Ruby:
+[ ]: Platform dependent files must all go under %{gem_extdir_mri}, platform
+     independent under %{gem_dir}.
+[x]: Gem package must not define a non-gem subpackage
+[x]: Macro %{gem_extdir} is deprecated.
+[x]: Gem package is named rubygem-%{gem_name}
+[x]: Package contains BuildRequires: rubygems-devel.
+[x]: Gem package must define %{gem_name} macro.
+[x]: Package does not contain Requires: ruby(abi).
+
 ===== SHOULD items =====
 
 Generic:
-[ ]: Avoid bundling fonts in non-fonts packages.
-     Note: Package contains font files
 [ ]: If the source package does not include license text(s) as a separate
      file from upstream, the packager SHOULD query upstream to include it.
 [ ]: Final provides and requires are sane (see attachments).
 [ ]: Fully versioned dependency in subpackages if applicable.
      Note: No Requires: %{name}%{?_isa} = %{version}-%{release} in rubygem-
-     unf_ext-doc , rubygem-unf_ext-debuginfo
+     unf_ext-doc
 [ ]: Package functions as described.
 [ ]: Latest version is packaged.
 [ ]: Package does not include license text files separate from upstream.
@@ -133,20 +146,30 @@ Generic:
 [ ]: %check is present and all tests pass.
 [ ]: Packages should try to preserve timestamps of original installed
      files.
+[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
+[x]: Sources can be downloaded from URI in Source: tag
 [x]: Reviewer should test that the package builds in mock.
 [x]: Buildroot is not present
 [x]: Package has no %clean section with rm -rf %{buildroot} (or
      $RPM_BUILD_ROOT)
 [x]: No file requires outside of /etc, /bin, /sbin, /usr/bin, /usr/sbin.
-[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
-[x]: Sources can be downloaded from URI in Source: tag
 [x]: SourceX is a working URL.
 [x]: Spec use %global instead of %define unless justified.
+
+Ruby:
+[!]: Gem should use %gem_install macro.
+[ ]: Specfile should use macros from rubygem-devel package.
+     Note: The specfile doesn't use these macros:
+     /usr/share/gems/specifications/unf_ext-0.0.7.4.gemspec, %exclude
+     /usr/share/gems/cache/unf_ext-0.0.7.4.gem,
+     /usr/share/gems/gems/unf_ext-0.0.7.4/lib
+[x]: Gem package should exclude cached Gem.
+[x]: Test suite should not be run by rake.
+[x]: Test suite of the library should be run.
 
 ===== EXTRA items =====
 
 Generic:
-[!]: When checking ruby code, install the ruby plugin.
 [x]: Rpmlint is run on debuginfo package(s).
      Note: No rpmlint messages.
 [x]: Rpmlint is run on all installed packages.
@@ -158,21 +181,22 @@ Generic:
 
 Rpmlint
 -------
-Checking: rubygem-unf_ext-0.0.7.4-1.fc25.x86_64.rpm
-          rubygem-unf_ext-doc-0.0.7.4-1.fc25.noarch.rpm
-          rubygem-unf_ext-debuginfo-0.0.7.4-1.fc25.x86_64.rpm
-          rubygem-unf_ext-0.0.7.4-1.fc25.src.rpm
+Checking: rubygem-unf_ext-0.0.7.4-1.el7.centos.x86_64.rpm
+          rubygem-unf_ext-doc-0.0.7.4-1.el7.centos.noarch.rpm
+          rubygem-unf_ext-0.0.7.4-1.el7.centos.src.rpm
+rubygem-unf_ext.x86_64: W: incoherent-version-in-changelog 0.0.7.4-1 ['0.0.7.4-1.el7.centos', '0.0.7.4-1.centos']
+rubygem-unf_ext.x86_64: E: arch-dependent-file-in-usr-share /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so
+rubygem-unf_ext.x86_64: W: no-soname /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so
 rubygem-unf_ext.x86_64: W: no-documentation
-rubygem-unf_ext-doc.noarch: W: spelling-error Summary(en_US) unf -> inf, fun, uni
-rubygem-unf_ext-doc.noarch: W: spelling-error %description -l en_US unf -> inf, fun, uni
-4 packages and 0 specfiles checked; 0 errors, 3 warnings.
+rubygem-unf_ext-doc.noarch: W: hidden-file-or-dir /usr/share/gems/gems/unf_ext-0.0.7.4/.document
+3 packages and 0 specfiles checked; 1 errors, 4 warnings.
 
 
 
 
 Rpmlint (debuginfo)
 -------------------
-Checking: rubygem-unf_ext-debuginfo-0.0.7.4-1.fc25.x86_64.rpm
+Checking: rubygem-unf_ext-debuginfo-0.0.7.4-1.el7.centos.x86_64.rpm
 1 packages and 0 specfiles checked; 0 errors, 0 warnings.
 
 
@@ -181,17 +205,24 @@ Checking: rubygem-unf_ext-debuginfo-0.0.7.4-1.fc25.x86_64.rpm
 
 Rpmlint (installed packages)
 ----------------------------
+rubygem-unf_ext-debuginfo.x86_64: W: only-non-binary-in-usr-lib
+rubygem-unf_ext.x86_64: E: explicit-lib-dependency libstdc++
+rubygem-unf_ext.x86_64: W: incoherent-version-in-changelog 0.0.7.4-1 ['0.0.7.4-1.el7.centos', '0.0.7.4-1.centos']
+rubygem-unf_ext.x86_64: E: arch-dependent-file-in-usr-share /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so
+rubygem-unf_ext.x86_64: W: no-soname /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so
+rubygem-unf_ext.x86_64: W: unused-direct-shlib-dependency /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so /lib64/librt.so.1
+rubygem-unf_ext.x86_64: W: unused-direct-shlib-dependency /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so /lib64/libdl.so.2
+rubygem-unf_ext.x86_64: W: unused-direct-shlib-dependency /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so /lib64/libcrypt.so.1
+rubygem-unf_ext.x86_64: W: unused-direct-shlib-dependency /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so /lib64/libm.so.6
+rubygem-unf_ext.x86_64: W: unused-direct-shlib-dependency /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so /lib64/libgcc_s.so.1
 rubygem-unf_ext.x86_64: W: no-documentation
-rubygem-unf_ext-doc.noarch: W: spelling-error Summary(en_US) unf -> inf, fun, uni
-rubygem-unf_ext-doc.noarch: W: spelling-error %description -l en_US unf -> inf, fun, uni
-3 packages and 0 specfiles checked; 0 errors, 3 warnings.
+rubygem-unf_ext-doc.noarch: W: hidden-file-or-dir /usr/share/gems/gems/unf_ext-0.0.7.4/.document
+3 packages and 0 specfiles checked; 2 errors, 10 warnings.
 
 
 
 Requires
 --------
-rubygem-unf_ext-debuginfo (rpmlib, GLIBC filtered):
-
 rubygem-unf_ext (rpmlib, GLIBC filtered):
     libc.so.6()(64bit)
     libcrypt.so.1()(64bit)
@@ -199,10 +230,10 @@ rubygem-unf_ext (rpmlib, GLIBC filtered):
     libgcc_s.so.1()(64bit)
     libm.so.6()(64bit)
     libpthread.so.0()(64bit)
-    libruby.so.2.3()(64bit)
+    librt.so.1()(64bit)
+    libruby.so.2.0()(64bit)
     libstdc++.so.6()(64bit)
     rtld(GNU_HASH)
-    ruby(rubygems)
 
 rubygem-unf_ext-doc (rpmlib, GLIBC filtered):
     rubygem-unf_ext
@@ -211,12 +242,7 @@ rubygem-unf_ext-doc (rpmlib, GLIBC filtered):
 
 Provides
 --------
-rubygem-unf_ext-debuginfo:
-    rubygem-unf_ext-debuginfo
-    rubygem-unf_ext-debuginfo(x86-64)
-
 rubygem-unf_ext:
-    rubygem(unf_ext)
     rubygem-unf_ext
     rubygem-unf_ext(x86-64)
 
@@ -228,6 +254,7 @@ rubygem-unf_ext-doc:
 Unversioned so-files
 --------------------
 rubygem-unf_ext: /usr/lib64/gems/ruby/unf_ext-0.0.7.4/unf_ext.so
+rubygem-unf_ext: /usr/share/gems/gems/unf_ext-0.0.7.4/lib/unf_ext.so
 
 Source checksums
 ----------------
@@ -236,9 +263,9 @@ https://rubygems.org/gems/unf_ext-0.0.7.4.gem :
   CHECKSUM(SHA256) upstream package : 8b3e34ddcc5db65c6e0c9f34b5bd62720e770ba04843d601c3730c887f131992
 
 
-Generated by fedora-review 0.6.1 (f03e4e7) last change: 2016-05-02
+Generated by fedora-review 0.5.3 (bcf15e3) last change: 2015-05-04
 Command line :/usr/bin/fedora-review -n rubygem-unf_ext
-Buildroot used: fedora-25-x86_64
-Active plugins: Generic, Shell-api
+Buildroot used: epel-7-x86_64
+Active plugins: Generic, Ruby, Shell-api
 Disabled plugins: Java, C/C++, Python, fonts, SugarActivity, Ocaml, Perl, Haskell, R, PHP
 Disabled flags: EXARCH, DISTTAG, EPEL5, BATCH, EPEL6

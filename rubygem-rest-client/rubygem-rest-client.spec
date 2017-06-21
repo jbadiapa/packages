@@ -4,7 +4,7 @@
 Name: rubygem-%{gem_name}
 Version: 2.0.2
 Release: 1%{?dist}
-Summary: REST and HTTP client for Ruby
+Summary: HTTP & REST client for ruby
 Group: Development/Languages
 License: MIT
 URL: https://github.com/rest-client/rest-client
@@ -25,7 +25,7 @@ BuildRequires: ruby >= 2.0.0
 BuildArch: noarch
 
 %description
-A simple HTTP and REST client for Ruby, inspired by the Sinatra micro-framework
+A simple HTTP and REST client for Ruby, inspired by the Sinatra microframework
 style of specifying actions: get, put, post, delete.
 
 
@@ -40,8 +40,6 @@ Documentation for %{name}.
 
 %prep
 gem unpack %{SOURCE0}
-
-sed -i -e 's/\/usr\/bin\/env ruby/\/usr\/bin\/ruby/g' %{gem_name}-%{version}/bin/restclient
 
 %setup -q -D -T -n  %{gem_name}-%{version}
 
@@ -99,5 +97,5 @@ popd
 %{gem_instdir}/spec
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 2.0.2-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 2.0.2-1
 - Initial package

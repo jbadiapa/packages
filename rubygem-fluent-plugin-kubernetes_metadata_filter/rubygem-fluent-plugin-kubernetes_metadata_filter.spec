@@ -4,7 +4,7 @@
 Name: rubygem-%{gem_name}
 Version: 0.27.0
 Release: 1%{?dist}
-Summary: Filter plugin to add Kubernetes meta-data
+Summary: Filter plugin to add Kubernetes metadata
 Group: Development/Languages
 License: ASL 2.0
 URL: https://github.com/fabric8io/fluent-plugin-kubernetes_metadata_filter
@@ -26,7 +26,7 @@ BuildRequires: ruby >= 2.0.0
 BuildArch: noarch
 
 %description
-Filter plugin to manage Kubernetes meta-data.
+Filter plugin to add Kubernetes metadata.
 
 
 %package doc
@@ -85,5 +85,5 @@ popd
 %{gem_instdir}/test
 
 %changelog
-* Sun Jun 04 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.27.0-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.27.0-1
 - Initial package

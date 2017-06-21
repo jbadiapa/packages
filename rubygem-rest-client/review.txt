@@ -26,9 +26,14 @@ Legend:
 
 Issues:
 =======
+- gems should require rubygems package
+  Note: Requires: rubygems missing in rubygem-rest-client, rubygem-rest-
+  client-doc
+  See: http://fedoraproject.org/wiki/Packaging:Ruby#RubyGems
+- Package contains Requires: ruby(release).
 - Package does not use a name that already exists.
   Note: A package with this name already exists. Please check
-  https://admin.fedoraproject.org/pkgdb/package/rubygem-rest-client
+  https://admin.fedoraproject.org/pkgdb/acls/name/rubygem-rest-client
   See:
   https://fedoraproject.org/wiki/Packaging/NamingGuidelines#Conflicting_Package_Names
 
@@ -41,9 +46,9 @@ Generic:
      Guidelines.
 [ ]: License field in the package spec file matches the actual license.
      Note: Checking patched sources after %prep for licenses. Licenses
-     found: "MIT/X11 (BSD like)", "Apache (v2.0)", "Unknown or generated".
-     57 files have unknown license. Detailed output of licensecheck in
-     /home/vagrant/rpmbuild/SPEC/tmp/review-rubygem-rest-
+     found: "Apache (v2.0.)", "Unknown or generated". 34 files have unknown
+     license. Detailed output of licensecheck in
+     /home/vagrant/rpmbuild/review/review-rubygem-rest-
      client/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
 [ ]: Package must own all directories that it creates.
@@ -100,11 +105,20 @@ Generic:
      Note: Documentation size is 0 bytes in 0 files.
 [x]: Packages must not store files under /srv, /opt or /usr/local
 
+Ruby:
+[ ]: Platform dependent files must all go under %{gem_extdir_mri}, platform
+     independent under %{gem_dir}.
+[x]: Gem package must not define a non-gem subpackage
+[x]: Macro %{gem_extdir} is deprecated.
+[x]: Gem package is named rubygem-%{gem_name}
+[x]: Package contains BuildRequires: rubygems-devel.
+[x]: Gem package must define %{gem_name} macro.
+[x]: Pure Ruby package must be built as noarch
+[x]: Package does not contain Requires: ruby(abi).
+
 ===== SHOULD items =====
 
 Generic:
-[ ]: Avoid bundling fonts in non-fonts packages.
-     Note: Package contains font files
 [ ]: If the source package does not include license text(s) as a separate
      file from upstream, the packager SHOULD query upstream to include it.
 [ ]: Final provides and requires are sane (see attachments).
@@ -121,20 +135,30 @@ Generic:
 [ ]: %check is present and all tests pass.
 [ ]: Packages should try to preserve timestamps of original installed
      files.
+[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
+[x]: Sources can be downloaded from URI in Source: tag
 [x]: Reviewer should test that the package builds in mock.
 [x]: Buildroot is not present
 [x]: Package has no %clean section with rm -rf %{buildroot} (or
      $RPM_BUILD_ROOT)
 [x]: No file requires outside of /etc, /bin, /sbin, /usr/bin, /usr/sbin.
-[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
-[x]: Sources can be downloaded from URI in Source: tag
 [x]: SourceX is a working URL.
 [x]: Spec use %global instead of %define unless justified.
+
+Ruby:
+[!]: Gem should use %gem_install macro.
+[ ]: Specfile should use macros from rubygem-devel package.
+     Note: The specfile doesn't use these macros: /usr/share/gems/gems
+     /rest-client-2.0.2/lib, /usr/share/gems/specifications/rest-
+     client-2.0.2.gemspec, %exclude /usr/share/gems/cache/rest-
+     client-2.0.2.gem
+[x]: Gem package should exclude cached Gem.
+[x]: Test suite should not be run by rake.
+[x]: Test suite of the library should be run.
 
 ===== EXTRA items =====
 
 Generic:
-[!]: When checking ruby code, install the ruby plugin.
 [x]: Rpmlint is run on all installed packages.
      Note: There are rpmlint messages (see attachment).
 [x]: Spec file according to URL is the same as in SRPM.
@@ -142,23 +166,25 @@ Generic:
 
 Rpmlint
 -------
-Checking: rubygem-rest-client-2.0.2-1.fc25.noarch.rpm
-          rubygem-rest-client-doc-2.0.2-1.fc25.noarch.rpm
-          rubygem-rest-client-2.0.2-1.fc25.src.rpm
+Checking: rubygem-rest-client-2.0.2-1.el7.centos.noarch.rpm
+          rubygem-rest-client-doc-2.0.2-1.el7.centos.noarch.rpm
+          rubygem-rest-client-2.0.2-1.el7.centos.src.rpm
+rubygem-rest-client.noarch: W: incoherent-version-in-changelog 2.0.2-1 ['2.0.2-1.el7.centos', '2.0.2-1.centos']
 rubygem-rest-client.noarch: W: no-documentation
 rubygem-rest-client.noarch: W: hidden-file-or-dir /usr/share/gems/gems/rest-client-2.0.2/.rubocop-disables.yml
 rubygem-rest-client.noarch: W: no-manual-page-for-binary restclient
-3 packages and 0 specfiles checked; 0 errors, 3 warnings.
+3 packages and 0 specfiles checked; 0 errors, 4 warnings.
 
 
 
 
 Rpmlint (installed packages)
 ----------------------------
+rubygem-rest-client.noarch: W: incoherent-version-in-changelog 2.0.2-1 ['2.0.2-1.el7.centos', '2.0.2-1.centos']
 rubygem-rest-client.noarch: W: no-documentation
 rubygem-rest-client.noarch: W: hidden-file-or-dir /usr/share/gems/gems/rest-client-2.0.2/.rubocop-disables.yml
 rubygem-rest-client.noarch: W: no-manual-page-for-binary restclient
-2 packages and 0 specfiles checked; 0 errors, 3 warnings.
+2 packages and 0 specfiles checked; 0 errors, 4 warnings.
 
 
 
@@ -168,11 +194,8 @@ rubygem-rest-client-doc (rpmlib, GLIBC filtered):
     rubygem-rest-client
 
 rubygem-rest-client (rpmlib, GLIBC filtered):
+    /usr/bin/env
     /usr/bin/ruby
-    ruby(rubygems)
-    rubygem(http-cookie)
-    rubygem(mime-types)
-    rubygem(netrc)
 
 
 
@@ -182,7 +205,6 @@ rubygem-rest-client-doc:
     rubygem-rest-client-doc
 
 rubygem-rest-client:
-    rubygem(rest-client)
     rubygem-rest-client
 
 
@@ -194,9 +216,9 @@ https://rubygems.org/gems/rest-client-2.0.2.gem :
   CHECKSUM(SHA256) upstream package : 1295e486591f8ef7786451e28d24f8aa0a04cc47767cd1859b729575b2d0ecc3
 
 
-Generated by fedora-review 0.6.1 (f03e4e7) last change: 2016-05-02
+Generated by fedora-review 0.5.3 (bcf15e3) last change: 2015-05-04
 Command line :/usr/bin/fedora-review -n rubygem-rest-client
-Buildroot used: fedora-25-x86_64
-Active plugins: Generic, Shell-api
+Buildroot used: epel-7-x86_64
+Active plugins: Generic, Ruby, Shell-api
 Disabled plugins: Java, C/C++, Python, fonts, SugarActivity, Ocaml, Perl, Haskell, R, PHP
 Disabled flags: EXARCH, DISTTAG, EPEL5, BATCH, EPEL6

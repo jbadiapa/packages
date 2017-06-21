@@ -26,18 +26,19 @@ Legend:
 
 Issues:
 =======
-- Package installs properly.
-  Note: Installation errors (see attachment)
-  See: https://fedoraproject.org/wiki/Packaging:Guidelines
+- gems should require rubygems package
+  Note: Requires: rubygems missing in rubygem-unf, rubygem-unf-doc
+  See: http://fedoraproject.org/wiki/Packaging:Ruby#RubyGems
+- Package contains Requires: ruby(release).
 - If (and only if) the source package includes the text of the license(s)
   in its own file, then that file, containing the text of the license(s)
   for the package is included in %license.
-  Note: License file LICENSE.html is not marked as %license
+  Note: License file LICENSE.html is marked as %doc instead of %license
   See:
   http://fedoraproject.org/wiki/Packaging/LicensingGuidelines#License_Text
 - Package does not use a name that already exists.
   Note: A package with this name already exists. Please check
-  https://admin.fedoraproject.org/pkgdb/package/rubygem-unf
+  https://admin.fedoraproject.org/pkgdb/acls/name/rubygem-unf
   See:
   https://fedoraproject.org/wiki/Packaging/NamingGuidelines#Conflicting_Package_Names
 
@@ -49,10 +50,15 @@ Generic:
      other legal requirements as defined in the legal section of Packaging
      Guidelines.
 [ ]: License field in the package spec file matches the actual license.
-     Note: There is no build directory. Running licensecheck on vanilla
-     upstream sources. No licenses found. Please check the source files for
-     licenses manually.
+     Note: Checking patched sources after %prep for licenses. Licenses
+     found: "Unknown or generated". 7 files have unknown license. Detailed
+     output of licensecheck in /home/vagrant/rpmbuild/review/review-
+     rubygem-unf/licensecheck.txt
 [ ]: License file installed when any subpackage combination is installed.
+[ ]: Package must own all directories that it creates.
+     Note: Directories without known owners:
+     /usr/share/gems/specifications, /usr/share/gems/gems,
+     /usr/share/gems/doc, /usr/share/gems
 [ ]: Package contains no bundled libraries without FPC exception.
 [ ]: Changelog in prescribed format.
 [ ]: Sources contain only permissible code or content.
@@ -73,10 +79,10 @@ Generic:
 [ ]: Package complies to the Packaging Guidelines
 [x]: Package successfully compiles and builds into binary rpms on at least
      one supported primary architecture.
+[x]: Package installs properly.
 [x]: Rpmlint is run on all rpms the build produces.
      Note: There are rpmlint messages (see attachment).
 [x]: Package requires other packages for directories it uses.
-[x]: Package must own all directories that it creates.
 [x]: Package does not own files or directories owned by other packages.
 [x]: All build dependencies are listed in BuildRequires, except for any
      that are listed in the exceptions section of Packaging Guidelines.
@@ -101,11 +107,20 @@ Generic:
      Note: Documentation size is 0 bytes in 0 files.
 [x]: Packages must not store files under /srv, /opt or /usr/local
 
+Ruby:
+[ ]: Platform dependent files must all go under %{gem_extdir_mri}, platform
+     independent under %{gem_dir}.
+[x]: Gem package must not define a non-gem subpackage
+[x]: Macro %{gem_extdir} is deprecated.
+[x]: Gem package is named rubygem-%{gem_name}
+[x]: Package contains BuildRequires: rubygems-devel.
+[x]: Gem package must define %{gem_name} macro.
+[x]: Pure Ruby package must be built as noarch
+[x]: Package does not contain Requires: ruby(abi).
+
 ===== SHOULD items =====
 
 Generic:
-[ ]: Avoid bundling fonts in non-fonts packages.
-     Note: Package contains font files
 [ ]: If the source package does not include license text(s) as a separate
      file from upstream, the packager SHOULD query upstream to include it.
 [ ]: Final provides and requires are sane (see attachments).
@@ -122,67 +137,62 @@ Generic:
 [ ]: %check is present and all tests pass.
 [ ]: Packages should try to preserve timestamps of original installed
      files.
+[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
+[x]: Sources can be downloaded from URI in Source: tag
 [x]: Reviewer should test that the package builds in mock.
 [x]: Buildroot is not present
 [x]: Package has no %clean section with rm -rf %{buildroot} (or
      $RPM_BUILD_ROOT)
 [x]: No file requires outside of /etc, /bin, /sbin, /usr/bin, /usr/sbin.
-[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
-[x]: Sources can be downloaded from URI in Source: tag
 [x]: SourceX is a working URL.
 [x]: Spec use %global instead of %define unless justified.
+
+Ruby:
+[!]: Gem should use %gem_install macro.
+[ ]: Specfile should use macros from rubygem-devel package.
+     Note: The specfile doesn't use these macros:
+     /usr/share/gems/specifications/unf-0.1.4.gemspec, %exclude
+     /usr/share/gems/cache/unf-0.1.4.gem,
+     /usr/share/gems/gems/unf-0.1.4/lib
+[x]: Gem package should exclude cached Gem.
+[x]: Test suite should not be run by rake.
+[x]: Test suite of the library should be run.
 
 ===== EXTRA items =====
 
 Generic:
-[!]: Rpmlint is run on all installed packages.
-     Note: Mock build failed
-     See: http://fedoraproject.org/wiki/Packaging/Guidelines#rpmlint
-[!]: When checking ruby code, install the ruby plugin.
+[x]: Rpmlint is run on all installed packages.
+     Note: There are rpmlint messages (see attachment).
 [x]: Spec file according to URL is the same as in SRPM.
-
-
-Installation errors
--------------------
-INFO: mock.py version 1.3.4 starting (python version = 3.5.3)...
-Start: init plugins
-INFO: selinux enabled
-Finish: init plugins
-Start: run
-Start: chroot init
-INFO: calling preinit hooks
-INFO: enabled root cache
-INFO: enabled dnf cache
-Start: cleaning dnf metadata
-Finish: cleaning dnf metadata
-INFO: enabled HW Info plugin
-Mock Version: 1.3.4
-INFO: Mock Version: 1.3.4
-Finish: chroot init
-INFO: installing package(s): /home/vagrant/rpmbuild/SPEC/review/review-rubygem-unf/results/rubygem-unf-doc-0.1.4-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/review/review-rubygem-unf/results/rubygem-unf-0.1.4-1.fc25.noarch.rpm
-ERROR: Command failed. See logs for output.
- # /usr/bin/dnf --installroot /var/lib/mock/fedora-25-x86_64/root/ --releasever 25 --disableplugin=local --setopt=deltarpm=false install /home/vagrant/rpmbuild/SPEC/review/review-rubygem-unf/results/rubygem-unf-doc-0.1.4-1.fc25.noarch.rpm /home/vagrant/rpmbuild/SPEC/review/review-rubygem-unf/results/rubygem-unf-0.1.4-1.fc25.noarch.rpm --setopt=tsflags=nocontexts
 
 
 Rpmlint
 -------
-Checking: rubygem-unf-0.1.4-1.fc25.noarch.rpm
-          rubygem-unf-doc-0.1.4-1.fc25.noarch.rpm
-          rubygem-unf-0.1.4-1.fc25.src.rpm
+Checking: rubygem-unf-0.1.4-1.el7.centos.noarch.rpm
+          rubygem-unf-doc-0.1.4-1.el7.centos.noarch.rpm
+          rubygem-unf-0.1.4-1.el7.centos.src.rpm
+rubygem-unf.noarch: W: incoherent-version-in-changelog 0.1.4-1 ['0.1.4-1.el7.centos', '0.1.4-1.centos']
 rubygem-unf.noarch: W: no-documentation
-3 packages and 0 specfiles checked; 0 errors, 1 warnings.
+rubygem-unf.src:36: W: macro-in-comment %{gem_name}
+rubygem-unf.src:36: W: macro-in-comment %{version}
+3 packages and 0 specfiles checked; 0 errors, 4 warnings.
 
+
+
+
+Rpmlint (installed packages)
+----------------------------
+rubygem-unf.noarch: W: incoherent-version-in-changelog 0.1.4-1 ['0.1.4-1.el7.centos', '0.1.4-1.centos']
+rubygem-unf.noarch: W: no-documentation
+2 packages and 0 specfiles checked; 0 errors, 2 warnings.
 
 
 
 Requires
 --------
 rubygem-unf (rpmlib, GLIBC filtered):
-    ruby(rubygems)
-    rubygem(unf_ext)
 
 rubygem-unf-doc (rpmlib, GLIBC filtered):
-    /bin/rake
     rubygem-unf
 
 
@@ -190,7 +200,6 @@ rubygem-unf-doc (rpmlib, GLIBC filtered):
 Provides
 --------
 rubygem-unf:
-    rubygem(unf)
     rubygem-unf
 
 rubygem-unf-doc:
@@ -205,9 +214,9 @@ https://rubygems.org/gems/unf-0.1.4.gem :
   CHECKSUM(SHA256) upstream package : 4999517a531f2a955750f8831941891f6158498ec9b6cb1c81ce89388e63022e
 
 
-Generated by fedora-review 0.6.1 (f03e4e7) last change: 2016-05-02
+Generated by fedora-review 0.5.3 (bcf15e3) last change: 2015-05-04
 Command line :/usr/bin/fedora-review -n rubygem-unf
-Buildroot used: fedora-25-x86_64
-Active plugins: Generic, Shell-api
+Buildroot used: epel-7-x86_64
+Active plugins: Generic, Ruby, Shell-api
 Disabled plugins: Java, C/C++, Python, fonts, SugarActivity, Ocaml, Perl, Haskell, R, PHP
 Disabled flags: EXARCH, DISTTAG, EPEL5, BATCH, EPEL6

@@ -4,7 +4,7 @@
 Name: rubygem-%{gem_name}
 Version: 0.11.0
 Release: 1%{?dist}
-Summary: Library to read/write netrc files
+Summary: Library to read and write netrc files
 Group: Development/Languages
 License: MIT
 URL: https://github.com/geemus/netrc
@@ -17,7 +17,7 @@ BuildArch: noarch
 
 %description
 This library can read and update netrc files, preserving formatting including
-comments and white space.
+comments and whitespace.
 
 
 %package doc
@@ -73,5 +73,5 @@ popd
 %{gem_instdir}/test
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.11.0-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 0.11.0-1
 - Initial package

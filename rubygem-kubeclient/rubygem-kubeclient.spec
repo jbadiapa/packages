@@ -20,7 +20,7 @@ BuildRequires: ruby >= 2.0.0
 BuildArch: noarch
 
 %description
-Kubernetes REST api client
+A client for Kubernetes REST api.
 
 
 %package doc
@@ -81,5 +81,5 @@ popd
 %{gem_instdir}/test
 
 %changelog
-* Mon Jun 05 2017 Juan Badia Payno <jbadiapa@redhat.com> - 2.4.0-1
+* Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 2.4.0-1
 - Initial package
