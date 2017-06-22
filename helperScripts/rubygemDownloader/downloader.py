@@ -4,7 +4,7 @@ import RubygemCBSChecker
 import pprint 
 import subprocess
 
-gems =  ['fluent-plugin-kubernetes_metadata_filter']
+gems =  ['http']
 
 gem = gems.pop(0)
 
@@ -30,7 +30,7 @@ while gem:
             downloader.download_file(parser.link,gemName)
             process = subprocess.Popen(['gem2rpm',gemName], stdout=subprocess.PIPE)
             out, err = process.communicate()
-            gemSpec = open ("{}.spec".format(gemName),"w")
+            gemSpec = open ("rubygem-{}.spec".format(gem),"w")
             gemSpec.write(out)
             gemSpec.close()
             gems = gems + parser.devDeps + parser.runtimeDeps
@@ -42,7 +42,7 @@ while gem:
         gem = gems.pop(0)
     else:
         gem = None
-    with open ('fluent-plugin-kubernetes_metadata_filter','w') as out:
+    with open ('http','w') as out:
         pp = pprint.PrettyPrinter(indent=1,stream=out)
         pp.pprint(dependencies)
 

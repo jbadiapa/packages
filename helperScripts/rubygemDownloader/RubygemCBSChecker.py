@@ -18,9 +18,10 @@ class RubygemCBSChecker(object):
 
     def check (self,package):
         self.package = package
-        if not self.check_package(package):
-           return self.check_rpm(package)
-        return self.isIn
+        return self.check_package(package)
+        #if not self.check_package(package):
+        #   return self.check_rpm(package)
+        #return self.isIn
 
     def parse (self):
         isIn = self.request.text.find ('<td colspan="2">No search results</td>')
