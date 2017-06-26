@@ -11,6 +11,10 @@ class RubygemParser(HTMLParser):
         self.devDeps = []
         self.isGem = False
         self.link = None
+        self.ruby_version = None
+        self.isRubyVersion = False
+        self.version = None
+        self.isVersion = False
 
     def handle_starttag(self, tag, attrs):
         if (tag == 'div'):
@@ -31,6 +35,14 @@ class RubygemParser(HTMLParser):
             if aux.has_key('id') and aux['id'] == 'download':
                 if aux.has_key('href'):
                     self.link = aux['href']
+        if (tag == 'i'):
+            print tag, attrs
+            for attr in attrs:
+                if attr[0] == 'class':
+                    if (attr[1] == 'gem__ruby-version'):
+                        self.isRubyVersion = True;
+                    elif (attr[1] == 'page__subheading'):
+                        self.isVersion = True
 
     def handle_endtag(self, tag):
         if (self.isRuntime and tag == 'div'):
@@ -39,6 +51,10 @@ class RubygemParser(HTMLParser):
             self.isDev = False
         elif self.isGem and tag == 'strong':
             self.isGem = False
+        elif self.isRubyVersion and tag == 'i':
+            self.isRubyVersion = False
+        elif self.isVersion and tag == 'i':
+            self.isVersion = False
 
     def handle_data(self, data):
         if (self.isGem):
@@ -46,6 +62,14 @@ class RubygemParser(HTMLParser):
                 self.runtimeDeps.append(data)
             elif (self.isDev):
                 self.devDeps.append(data)
+        elif self.isRubyVersion:
+            pos = data.find("\n")
+            if (pos > 0):
+                self.ruby_version = data[:pos]
+            else:
+                self.ruby_version = data
+        elif self.isVersion:
+            self.version = data
 
 
 
