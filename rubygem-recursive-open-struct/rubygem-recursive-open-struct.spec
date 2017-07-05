@@ -70,6 +70,7 @@ popd
 %dir %{gem_instdir}
 %exclude %{gem_instdir}/.gitignore
 %exclude %{gem_instdir}/.travis.yml
+%exclude %{gem_instdir}/.document
 %license %{gem_instdir}/LICENSE.txt
 %{gem_libdir}
 %exclude %{gem_instdir}/recursive-open-struct.gemspec
@@ -78,10 +79,11 @@ popd
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/.document
+%exclude %{gem_instdir}/.document
 %exclude %{gem_instdir}/.rspec
 %doc %{gem_instdir}/AUTHORS.txt
 %doc %{gem_instdir}/CHANGELOG.md
+%license %{gem_instdir}/LICENSE.txt
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
