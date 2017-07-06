@@ -36,7 +36,6 @@ class RubygemParser(HTMLParser):
                 if aux.has_key('href'):
                     self.link = aux['href']
         if (tag == 'i'):
-            print tag, attrs
             for attr in attrs:
                 if attr[0] == 'class':
                     if (attr[1] == 'gem__ruby-version'):

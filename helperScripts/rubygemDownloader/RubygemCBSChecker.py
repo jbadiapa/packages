@@ -1,36 +1,8 @@
 import requests
+from RubygemKojiChecker import RubygemKojiChecker
 
-class RubygemCBSChecker(object):
+class RubygemCBSChecker(RubygemKojiChecker):
 
     def __init__(self):
-        self.url = "http://cbs.centos.org/koji/search?match=glob&terms="
-
-    def check_package(self,package):
-        return self.check_url(package,"package")
-
-    def check_rpm(self,package):
-        return self.check_url("{}*".format(package),"rpm")
-
-    def check_url(self,criteria,search):
-        self.request = requests.get ("{}{}&type={}".format(self.url,criteria,search))
-        self.parse()
-        return self.isIn
-
-    def check (self,package):
-        self.package = package
-        return self.check_package(package)
-        #if not self.check_package(package):
-        #   return self.check_rpm(package)
-        #return self.isIn
-
-    def parse (self):
-        isIn = self.request.text.find ('<td colspan="2">No search results</td>')
-        if (isIn == -1 ):
-            textStart = self.request.text.find ('<h4>Information for ')
-            textEnd = self.request.text.find('</a></h4>',textStart)
-            self.packageUrl = self.request.text[textStart:textEnd]
-            self.isIn = True
-        else:
-            self.isIn = False
-            self.packageUrl = None
+        super(RubygemCBSChecker, self).__init__("http://cbs.centos.org/koji/search?match=glob&terms=")
 

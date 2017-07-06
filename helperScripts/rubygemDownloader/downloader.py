@@ -39,7 +39,8 @@ while gem:
             gemSpec.close()
             gems = gems + parser.runtimeDeps
         else:
-            dependencies[gem]=cbsChecker.packageUrl
+            dependencies[gem]={'packageUrl':cbsChecker.packageUrl,
+                               'packageBuilds':cbsChecker.builds}
         doneGems.append(gem)
 
     if len(gems)>0:
