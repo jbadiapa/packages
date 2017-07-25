@@ -144,9 +144,9 @@ Ruby:
 [!]: Gem should use %gem_install macro.
 [ ]: Specfile should use macros from rubygem-devel package.
      Note: The specfile doesn't use these macros:
+     /usr/share/gems/specifications/lru_redux-1.1.0.gemspec,
      /usr/share/gems/gems/lru_redux-1.1.0/lib, %exclude
-     /usr/share/gems/cache/lru_redux-1.1.0.gem,
-     /usr/share/gems/specifications/lru_redux-1.1.0.gemspec
+     /usr/share/gems/cache/lru_redux-1.1.0.gem
 [x]: Gem package should exclude cached Gem.
 [x]: Test suite should not be run by rake.
 [x]: Test suite of the library should be run.

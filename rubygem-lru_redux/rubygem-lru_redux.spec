@@ -1,6 +1,11 @@
 # Generated from lru_redux-1.1.0.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name lru_redux
 
+
+# This will enable test on the future
+# and also added it depdendencies
+%global with_test 0
+
 Name: rubygem-%{gem_name}
 Version: 1.1.0
 Release: 1%{?dist}
@@ -12,12 +17,14 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 1.9.3
-# BuildRequires: rubygem(minitest)
-# BuildRequires: rubygem(guard-minitest)
-# BuildRequires: rubygem(guard)
-# BuildRequires: rubygem(rb-inotify)
-# BuildRequires: rubygem(timecop) >= 0.7
-# BuildRequires: rubygem(timecop) < 1
+%if 0%{?with_test}
+BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(guard-minitest)
+BuildRequires: rubygem(guard)
+BuildRequires: rubygem(rb-inotify)
+BuildRequires: rubygem(timecop) >= 0.7
+BuildRequires: rubygem(timecop) < 1
+%endif
 BuildArch: noarch
 
 Provides: rubygem(%{gem_name}) = %{version}
@@ -37,6 +44,10 @@ Documentation for %{name}.
 
 %prep
 gem unpack %{SOURCE0}
+
+%setup -q -D -T -n  %{gem_name}-%{version}
+
+gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 %setup -q -D -T -n  %{gem_name}-%{version}
 
@@ -85,3 +96,4 @@ popd
 %changelog
 * Tue Jun 20 2017 Juan Badia Payno <jbadiapa@redhat.com> - 1.1.0-1
 - Initial package
+
