@@ -4,7 +4,7 @@
 
 # This will enable test on the future
 # and also added it depdendencies
-%global with_test 0
+%global with_test 1 
 
 Name: rubygem-%{gem_name}
 Version: 1.1.0
@@ -19,9 +19,6 @@ BuildRequires: rubygems-devel
 BuildRequires: ruby >= 1.9.3
 %if 0%{?with_test}
 BuildRequires: rubygem(minitest)
-BuildRequires: rubygem(guard-minitest)
-BuildRequires: rubygem(guard)
-BuildRequires: rubygem(rb-inotify)
 BuildRequires: rubygem(timecop) >= 0.7
 BuildRequires: rubygem(timecop) < 1
 %endif
@@ -72,7 +69,12 @@ cp -a .%{gem_dir}/* \
 # Run the test suite
 %check
 pushd .%{gem_instdir}
-
+%if 0%{?with_test}
+ruby -Ilib:test test/cache_test.rb
+ruby -Ilib:test -e "load 'test/cache_test.rb'" -e "load 'test/thread_safe_cache_test.rb'"
+ruby -Ilib:test  -e "load 'test/cache_test.rb'" -e "load 'test/ttl/cache_test.rb'"
+ruby -Ilib:test  -e "load 'test/cache_test.rb'" -e "load 'test/ttl/cache_test.rb'" -e "load 'test/ttl/thread_safe_cache_test.rb'"
+%endif
 popd
 
 %files
