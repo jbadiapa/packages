@@ -1,5 +1,9 @@
 %global gem_name excon
 
+# This will enable test on the future
+# and also added it depdendencies
+%global with_test 0 
+
 Name: rubygem-%{gem_name}
 Version: 0.54.0
 Release: 3%{?dist}
@@ -14,16 +18,22 @@ Patch0: excon-0.54.0-update-self-signed-certs-to-fix-tests.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-# BuildRequires: %{_bindir}/rackup
-# BuildRequires: %{_bindir}/shindo
-# BuildRequires: rubygem(activesupport)
-# BuildRequires: rubygem(delorean)
-# BuildRequires: rubygem(eventmachine)
-# BuildRequires: rubygem(open4)
-# BuildRequires: rubygem(puma)
-# BuildRequires: rubygem(sinatra)
-# BuildRequires: rubygem(rspec)
+%if 0%{?with_test}
+BuildRequires: %{_bindir}/rackup
+BuildRequires: %{_bindir}/shindo
+BuildRequires: rubygem(activesupport)
+BuildRequires: rubygem(delorean)
+BuildRequires: rubygem(eventmachine)
+BuildRequires: rubygem(open4)
+BuildRequires: rubygem(puma)
+BuildRequires: rubygem(sinatra)
+BuildRequires: rubygem(rspec)
+%endif
 BuildArch: noarch
+
+%if 0%{?rhel} > 0
+Provides: rubygem(%{gem_name}) = %{version}
+%endif
 
 %description
 EXtended http(s) CONnections.
@@ -66,22 +76,23 @@ rm -rf %{buildroot}%{gem_instdir}/data
 
 %check
 pushd .%{gem_instdir}
+%if 0%{?with_test}
 # Unicorn is not available in Fedora yet (rhbz#1065685).
-#sed -i '/if plugin == :unicorn/ i\  before { skip("until #{plugin} is in Fedora") } if plugin == :unicorn' spec/support/shared_contexts/test_server_context.rb
-#sed -i '/with_unicorn/ s/^/  pending\n\n/' tests/{basic_tests.rb,proxy_tests.rb}
+sed -i '/if plugin == :unicorn/ i\  before { skip("until #{plugin} is in Fedora") } if plugin == :unicorn' spec/support/shared_contexts/test_server_context.rb
+sed -i '/with_unicorn/ s/^/  pending\n\n/' tests/{basic_tests.rb,proxy_tests.rb}
 
 # spec_helper is not required on all places.
 # https://github.com/excon/excon/pull/610
 # time must be required for some tests.
 # https://github.com/excon/excon/pull/611
-#rspec -rspec_helper -rtime spec
+rspec -rspec_helper -rtime spec
 
 # Don't use Bundler.
-#sed -i "/'bundler\/setup'/ s/^/#/" tests/test_helper.rb
+sed -i "/'bundler\/setup'/ s/^/#/" tests/test_helper.rb
 
 # This would require Sinatra 2.x+ or sinatra-contrib.
-# sed -i '/redirecting_with_cookie.ru/,/^  end/ s/^/#/' tests/middlewares/capture_cookies_tests.rb
-
+ sed -i '/redirecting_with_cookie.ru/,/^  end/ s/^/#/' tests/middlewares/capture_cookies_tests.rb
+%endif
 #shindo
 popd
 

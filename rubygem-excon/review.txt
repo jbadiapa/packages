@@ -172,9 +172,7 @@ rubygem-excon.noarch: W: no-documentation
 rubygem-excon.src: W: spelling-error Summary(en_US) http -> HTTP
 rubygem-excon.src: W: spelling-error %description -l en_US EXtended -> Extended, Extender, Expended
 rubygem-excon.src: W: spelling-error %description -l en_US http -> HTTP
-rubygem-excon.src:17: W: macro-in-comment %{_bindir}
-rubygem-excon.src:18: W: macro-in-comment %{_bindir}
-3 packages and 0 specfiles checked; 0 errors, 9 warnings.
+3 packages and 0 specfiles checked; 0 errors, 7 warnings.
 
 
 

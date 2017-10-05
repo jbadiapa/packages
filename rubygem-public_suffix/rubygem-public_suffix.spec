@@ -1,6 +1,10 @@
 # Generated from public_suffix-2.0.5.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name public_suffix
 
+# This will enable test on the future
+# and also added it depdendencies
+%global with_test 0 
+
 Name: rubygem-%{gem_name}
 Version: 2.0.5
 Release: 3%{?dist}
@@ -12,9 +16,16 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-# BuildRequires: rubygem(minitest)
-# BuildRequires: rubygem(mocha)
+%if 0%{?with_test}
+BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(mocha)
+%endif
+
 BuildArch: noarch
+
+%if 0%{?rhel} > 0
+Provides: rubygem(%{gem_name}) = %{version}
+%endif
 
 %description
 PublicSuffix can parse and decompose a domain name into top level domain,
@@ -55,11 +66,13 @@ cp -a .%{gem_dir}/* \
 
 %check
 pushd .%{gem_instdir}
+%if 0%{?with_test}
 # We don't have minitest-reporters in Fedora yet, but they are not needed
 # very likely.
-# sed -i '/[Rr]eporters/ s/^/#/' test/test_helper.rb
+sed -i '/[Rr]eporters/ s/^/#/' test/test_helper.rb
 
-# LANG=C.utf-8 ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+LANG=C.utf-8 ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+%endif
 popd
 
 %files

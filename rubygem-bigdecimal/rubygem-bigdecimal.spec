@@ -1,6 +1,10 @@
 # Generated from bigdecimal-1.3.2.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name bigdecimal
 
+# This will enable test on the future
+# and also added it depdendencies
+%global with_test 0 
+
 Name: rubygem-%{gem_name}
 Version: 1.3.2
 Release: 1%{?dist}
@@ -12,11 +16,17 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
-# BuildRequires: rubygem(rake-compiler) >= 0.9
-# BuildRequires: rubygem(rake-compiler) < 1
-# BuildRequires: rubygem(minitest) >= 4.7.5
-# BuildRequires: rubygem(minitest) < 4.8
-# BuildRequires: rubygem(pry)
+%if 0%{?with_test}
+BuildRequires: rubygem(rake-compiler) >= 0.9
+BuildRequires: rubygem(rake-compiler) < 1
+BuildRequires: rubygem(minitest) >= 4.7.5
+BuildRequires: rubygem(minitest) < 4.8
+BuildRequires: rubygem(pry)
+%endif
+
+%if 0%{?rhel} > 0
+Provides: rubygem(%{gem_name}) = %{version}
+%endif
 
 %description
 This library provides arbitrary-precision decimal floating-point number class.

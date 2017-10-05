@@ -1,5 +1,9 @@
 %global gem_name i18n
 
+# This will enable test on the future
+# and also added it depdendencies
+%global with_test 0 
+
 Summary: New wave Internationalization support for Ruby
 Name: rubygem-%{gem_name}
 Version: 0.7.0
@@ -14,10 +18,16 @@ Patch0: rubygem-i18n-0.7.0-Ignore-metadata-for-frozen-classes.patch
 BuildRequires: ruby
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-# BuildRequires: rubygem(minitest)
-# BuildRequires: rubygem(mocha)
-# BuildRequires: rubygem(test_declarative)
+%if 0%{?with_test}
+BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(mocha)
+BuildRequires: rubygem(test_declarative)
+%endif
 BuildArch: noarch
+
+%if 0%{?rhel} > 0
+Provides: rubygem(%{gem_name}) = %{version}
+%endif
 
 %description
 Ruby Internationalization and localization solution.
@@ -49,13 +59,14 @@ cp -a .%{gem_dir}/* \
 
 %check
 pushd .%{gem_instdir}
-
+%if 0%{?with_test}
 # Bundler just complicates everything in our case, remove it.
-# sed -i -e "/require 'bundler\/setup'/ s/^/#/" test/test_helper.rb
+sed -i -e "/require 'bundler\/setup'/ s/^/#/" test/test_helper.rb
 
 # Tests are failing without LANG environment is set.
 # https://github.com/svenfuchs/i18n/issues/115
-# LANG=en_US.utf8 ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+LANG=en_US.utf8 ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+%endif
 popd
 
 %files

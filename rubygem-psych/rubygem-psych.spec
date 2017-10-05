@@ -1,6 +1,10 @@
 # Generated from psych-2.0.0.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name psych
 
+# This will enable test on the future
+# and also added it depdendencies
+%global with_test 0 
+
 Name: rubygem-%{gem_name}
 Version: 2.0.0
 Release: 1%{?dist}
@@ -12,9 +16,15 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel >= 1.9.2
-# BuildRequires: rubygem(rake-compiler) >= 0.4.1
-# BuildRequires: rubygem(hoe) >= 3.6
-# BuildRequires: rubygem(hoe) < 4
+%if 0%{?with_test}
+BuildRequires: rubygem(rake-compiler) >= 0.4.1
+BuildRequires: rubygem(hoe) >= 3.6
+BuildRequires: rubygem(hoe) < 4
+%endif
+
+%if 0%{?rhel} > 0
+Provides: rubygem(%{gem_name}) = %{version}
+%endif
 
 %description
 Psych is a YAML parser and emitter.  Psych leverages
@@ -73,6 +83,7 @@ popd
 %{gem_instdir}/.autotest
 %exclude %{gem_instdir}/.gemtest
 %exclude %{gem_instdir}/.travis.yml
+%exclude %{gem_instdir}/.autotest
 %{gem_instdir}/Manifest.txt
 %{gem_libdir}
 %exclude %{gem_cache}

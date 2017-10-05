@@ -213,7 +213,6 @@ rubygem-psych.x86_64: W: spelling-error %description -l en_US pyyaml -> Khayyam
 rubygem-psych.x86_64: W: spelling-error %description -l en_US de -> DE, ed, d
 rubygem-psych.x86_64: W: invalid-license MIT ????
 rubygem-psych.x86_64: W: no-documentation
-rubygem-psych.x86_64: W: hidden-file-or-dir /usr/share/gems/gems/psych-2.0.0/.autotest
 rubygem-psych-doc.noarch: W: invalid-license MIT ????
 rubygem-psych-debuginfo.x86_64: W: invalid-license MIT ????
 rubygem-psych.src: W: spelling-error %description -l en_US libyaml -> Libya
@@ -221,7 +220,7 @@ rubygem-psych.src: W: spelling-error %description -l en_US http -> HTTP
 rubygem-psych.src: W: spelling-error %description -l en_US pyyaml -> Khayyam
 rubygem-psych.src: W: spelling-error %description -l en_US de -> DE, ed, d
 rubygem-psych.src: W: invalid-license MIT ????
-4 packages and 0 specfiles checked; 0 errors, 14 warnings.
+4 packages and 0 specfiles checked; 0 errors, 13 warnings.
 
 
 
