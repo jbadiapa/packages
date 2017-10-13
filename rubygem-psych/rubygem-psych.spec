@@ -10,7 +10,7 @@ Version: 2.0.0
 Release: 1%{?dist}
 Summary: Psych is a YAML parser and emitter
 Group: Development/Languages
-License: MIT ???? 
+License: MIT
 URL: http://github.com/tenderlove/psych
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
@@ -47,6 +47,8 @@ Documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
+
+tail -n 23 README.rdoc > LICENSE
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -88,6 +90,7 @@ popd
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
+%license LICENSE
 
 %files doc
 %doc %{gem_docdir}
@@ -97,5 +100,5 @@ popd
 %{gem_instdir}/test
 
 %changelog
-* Wed Sep 27 2017 vagrant - 2.0.0-1
+* Wed Sep 27 2017 jbadiapa@redhat.com - 2.0.0-1
 - Initial package
